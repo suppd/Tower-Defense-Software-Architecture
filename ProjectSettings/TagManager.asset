@@ -7,6 +7,8 @@ TagManager:
   - Waypoints
   - enemy
   - Base
+  - Money
+  - Health
   layers:
   - Default
   - TransparentFX
