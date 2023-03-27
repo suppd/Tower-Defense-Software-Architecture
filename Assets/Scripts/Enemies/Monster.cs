@@ -23,6 +23,7 @@ public abstract class Monster : MonoBehaviour
 
     [SerializeField]
     private GameObject deathEffect;
+    public Collider collider;
 
     private bool isDead = false;
     private float OriginalMovement;
@@ -101,9 +102,9 @@ public abstract class Monster : MonoBehaviour
     private void HandleEnemyEnter(object sender,EventArgs eventArgs)
     {
         BaseEnterEvent baseEnterEvent = (BaseEnterEvent)eventArgs;
-        if (baseEnterEvent != null && this.GetComponent<Collider>() != null)
+        if (baseEnterEvent != null && collider != null)
         {
-            if (baseEnterEvent.BoxCollider == this.GetComponent<Collider>())
+            if (baseEnterEvent.BoxCollider == collider)
             {
                 Die();
             }
