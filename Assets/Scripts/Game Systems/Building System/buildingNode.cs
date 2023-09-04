@@ -27,7 +27,7 @@ public class buildingNode : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (WaveSpawner.instance.waveOver)
+        if (WaveSpawner.Instance.waveOver)
         {
             if (turret != null)
             {
@@ -37,7 +37,7 @@ public class buildingNode : MonoBehaviour
             if (PlayerInfo.Money >= PlayerInfo.buildCost)
             {
                 gameManager.GetComponent<PlayerInfo>().SpendMoneyOnBuild();
-                GameObject turretToBuild = BuildingManagerScript.instance.GetTurretToBuild();
+                GameObject turretToBuild = BuildingManagerScript.Instance.GetTurretToBuild();
                 turret = (GameObject)Instantiate(turretToBuild, transform.position, transform.rotation);
             }
         }

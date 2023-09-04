@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 1348551402599316874}
   - component: {fileID: 1348551402599316873}
   - component: {fileID: 1348551402599316875}
-  - component: {fileID: 1348551402599316876}
   - component: {fileID: 1348551402599316877}
   - component: {fileID: 1348551402599316977}
   - component: {fileID: 1348551402599316976}
@@ -155,8 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 1348551403950776381}
   completeLevelUI: {fileID: 0}
-  triggerScript: {fileID: 0}
-  buildingManagerScript: {fileID: 0}
+  gameplayUI: {fileID: 0}
 --- !u!114 &1348551402599316875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,40 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d17a7aad81315459ef57f45598bfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMoney: 10
+  startLives: 20
   playerUI: {fileID: 0}
   moneyText: {fileID: 0}
   healthText: {fileID: 0}
-  startMoney: 10
-  startLives: 20
---- !u!114 &1348551402599316876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348551402599316872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c298e5b6c180d647b04380d1e59fbbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves:
-  - {fileID: 1348551402599316877}
-  - {fileID: 1348551402599316977}
-  - {fileID: 1348551402599316976}
-  - {fileID: 1348551402599316879}
-  - {fileID: 1348551402599316878}
-  spawnPoint: {fileID: 0}
-  wayPoints: {fileID: 0}
-  waveOver: 0
-  timeBetweenWaves: 30
-  waveCountdownText: {fileID: 0}
-  waveOverText: {fileID: 0}
-  buildingPhaseText: {fileID: 0}
-  waveCounterText: {fileID: 0}
-  buildButton1: {fileID: 0}
-  buildButton2: {fileID: 0}
-  buildButton3: {fileID: 0}
 --- !u!114 &1348551402599316877
 MonoBehaviour:
   m_ObjectHideFlags: 0

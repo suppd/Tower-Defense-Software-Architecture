@@ -3,12 +3,11 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
-public class WaveSpawner : MonoBehaviour
+public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class to make wavespaner a singelton class (so theres only one in the game!)
 {
 	// wavespawner class is responsible for knowing when to start a new wave when a wave is still in progress when the game is over (by winning) 
 	// and for of course keeping track of the number of the wave its on and then spawning the enemies based on a script inputed in the inspector
 
-	public static WaveSpawner instance;
 	public static int EnemiesAlive = 0;
 
 	//arrray of waves to spawn which can be dragged in through the inspector 
@@ -52,14 +51,8 @@ public class WaveSpawner : MonoBehaviour
 	private int waveCountForText = 1;
 	private void Awake()
 	{
-		// get the gamemanager instance and make it so that there can only be one wavespawner too!
+		// get the gamemanager object!
 		gameManager = GameObject.FindGameObjectWithTag("GameController");
-		if (instance != null)
-		{
-			Debug.LogError("more than one wavemanager!!!");
-			return;
-		}
-		instance = this;
 	}
     private void Start()
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,13 +15,14 @@ public class GameManager : MonoBehaviour
 
 	public GameObject gameOverUI;
 	public GameObject completeLevelUI;
+	public GameObject gameplayUI;
     private void OnEnable() // subscribe to eventbus
     {
-        GlobalBus.sync.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     private void OnDisable() //unsubscribe to eventbus
     {
-        GlobalBus.sync.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.globalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     void Awake()
 	{
@@ -30,15 +32,10 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if (GameIsOver)
-		{
-			gameOverUI.SetActive(true);
-			//pause time or stop waves from spawning or smth..? atleast make it so that player cant continue playing
-		}
 		if (PlayerInfo.Lives <= 0)
 		{
 			LoseLevel();
-			this.GetComponentInParent<WaveSpawner>().enabled = false;
+			WaveSpawner.Instance.enabled = false;
 		}
 		//CHEATS
 		if (Input.GetKey(KeyCode.P))
@@ -49,20 +46,27 @@ public class GameManager : MonoBehaviour
         {
             PlayerInfo.Money--;
         }
-    
+  
 	}
 
     private void LoseLevel()
 	{
 		GameIsOver = true;
 		gameOverUI.SetActive(true);
+		gameplayUI.SetActive(false);
 	}
 
 	public void WinLevel()
 	{
 		GameIsOver = true;
 		completeLevelUI.SetActive(true);
-	}
+        gameplayUI.SetActive(false);
+    }
+	public void ReloadScene()
+	{
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
     private void HandleEnemyEnter(object sender, EventArgs eventArgs)
     {
         PlayerInfo.Lives--;

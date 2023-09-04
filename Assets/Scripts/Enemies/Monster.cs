@@ -23,7 +23,8 @@ public abstract class Monster : MonoBehaviour
 
     [SerializeField]
     private GameObject deathEffect;
-    public Collider collider;
+    [SerializeField]
+    private Collider collider;
 
     private bool isDead = false;
     private float OriginalMovement;
@@ -31,12 +32,12 @@ public abstract class Monster : MonoBehaviour
 
     private void OnEnable() // subscribe to eventbus
     {
-        GlobalBus.sync.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     private void OnDestroy() //unsubscribe to eventbus
     {
         Debug.Log("unsubscribing from eventbus because im being destroyed :(");
-        GlobalBus.sync.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.globalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     private void Awake() // pass in the path to follow
     {  

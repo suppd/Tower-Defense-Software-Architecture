@@ -16,6 +16,13 @@ public class TowerInfo : MonoBehaviour
     public int towerSlowDuration = 3;
     public float towerExplosionRadius = 1.5f;
 
+    //The values that are upgraded by the upgrade system make them public and accesible in editor so upgrades can be adjusted for each tower type
+    public int allTowerLevelGain = 1;
+    //
+    public int normalTowerDamageGain = 1;
+    public float AOETowerRadiusGain = 0.5f;
+    public int DebuffTowerSlowDurationGain = 1;
+    //
     private float previousTowerExplosionRadius;
     private GameObject gameManager; // get the gamemanager so we can "spend" the players money
     private void Start()
@@ -30,8 +37,8 @@ public class TowerInfo : MonoBehaviour
         if (PlayerInfo.Money >= PlayerInfo.upgradeCost)
         {
             gameManager.GetComponent<PlayerInfo>().SpendMoneyOnUpgrade();
-            this.towerLevel++;
-            this.towerDamage++;
+            this.towerLevel += allTowerLevelGain;
+            this.towerDamage += normalTowerDamageGain;
             Debug.Log("this tower has been upgraded to have " + towerDamage + "amounts of damage per shot!");
             updateTowerShootingScript();
         }
@@ -41,9 +48,9 @@ public class TowerInfo : MonoBehaviour
         if (PlayerInfo.Money >= PlayerInfo.upgradeCost)
         {
             gameManager.GetComponent<PlayerInfo>().SpendMoneyOnUpgrade();
-            this.towerLevel++;
+            this.towerLevel += allTowerLevelGain;
             previousTowerExplosionRadius = towerExplosionRadius;
-            this.towerExplosionRadius = previousTowerExplosionRadius + 0.5f;
+            this.towerExplosionRadius = previousTowerExplosionRadius + AOETowerRadiusGain;
             Debug.Log("this tower has been upgraded to have " + towerExplosionRadius + "big of a radius !");
             updateTowerShootingScriptExplosionRadius();
         }
@@ -53,8 +60,8 @@ public class TowerInfo : MonoBehaviour
         if (PlayerInfo.Money >= PlayerInfo.upgradeCost)
         {
             gameManager.GetComponent<PlayerInfo>().SpendMoneyOnUpgrade();
-            this.towerLevel++;
-            this.towerSlowDuration++;
+            this.towerLevel += allTowerLevelGain;
+            this.towerSlowDuration += DebuffTowerSlowDurationGain;
             Debug.Log("this tower has been upgraded to have " + towerSlowDuration + "amounts of slowduration !");
             updateTowerShootingScriptSlowDuration();
         }

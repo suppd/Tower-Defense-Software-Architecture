@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisableAndEnableTowerButton : MonoBehaviour
 {
@@ -17,9 +18,10 @@ public class DisableAndEnableTowerButton : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //enable upgrade button based on wheter its building phase or not
         if (gameManager != null)
         {
-            if (gameManager.GetComponent<WaveSpawner>().waveOver)
+            if (WaveSpawner.Instance.waveOver)
             {
                 //Debug.Log("enabling upggrade");
                 TowerUpgradeButton.gameObject.SetActive(true);
@@ -29,6 +31,17 @@ public class DisableAndEnableTowerButton : MonoBehaviour
                 //Debug.Log("disabling upggrade");
                 TowerUpgradeButton.gameObject.SetActive(false);
             }
+        }
+        // changing color based on if upgrade is possible
+        if (PlayerInfo.Money < PlayerInfo.upgradeCost)
+        {
+            TowerUpgradeButton.GetComponent<Image>().color = Color.red;
+            TowerUpgradeButton.SetActive(false);
+        }
+        else if (WaveSpawner.Instance.waveOver)
+        {
+            TowerUpgradeButton.SetActive(true);
+            TowerUpgradeButton.GetComponent<Image>().color = Color.green;
         }
     }
 }

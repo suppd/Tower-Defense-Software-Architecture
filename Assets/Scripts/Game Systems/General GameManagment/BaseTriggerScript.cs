@@ -12,7 +12,7 @@ public class BaseTriggerScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("enemy entered the base!");
-        GlobalBus.sync.Publish(this, new BaseEnterEvent(other)); //the enemy has entered the base (send event!!!) 
+        GlobalBus.globalEventBus.Publish(this, new BaseEnterEvent(other)); //the enemy has entered the base (send event!!!) 
     }
   
 }

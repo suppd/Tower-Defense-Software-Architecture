@@ -46,12 +46,18 @@ public class PlayerInfo : MonoBehaviour
 
 	public void SpendMoneyOnUpgrade()
     {
-		Money = Money - upgradeCost;
+		if (Money >= upgradeCost)
+		{
+			Money = Money - upgradeCost;
+		}
     }
 
 	public void SpendMoneyOnBuild()
 	{
-		Money = Money - buildCost;
+		if (Money >= buildCost)
+		{
+			Money = Money - buildCost;
+		}
 	}
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingManagerScript : MonoBehaviour
+public class BuildingManagerScript : Singleton<BuildingManagerScript> //inherit from singelton class
 {
     /// <summary>
     /// Building Manager script
@@ -10,17 +10,7 @@ public class BuildingManagerScript : MonoBehaviour
     /// gives information to playerinfo class for the cost of each build
     /// changes the turret to build variable that the building node class can use
     /// </summary>
-    public static BuildingManagerScript instance;
 
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogError("more than one buildmanager!!!");
-            return;
-        }
-        instance = this;
-    }
     public GameObject standardTurretPrefab;
     public GameObject aoeTurretPrefab;
     public GameObject debuffTurretPrefab;
