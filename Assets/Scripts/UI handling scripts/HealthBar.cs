@@ -11,18 +11,18 @@ public class HealthBar : MonoBehaviour
     public Slider healthBar;
     public Image fill;
     public Gradient gradient;
-    public Zombie zombie;
+    public Skeleton skeleton;
 
     private float health;
     private void Awake()
     {
-        health = zombie.health;
+        health = skeleton.health;
         healthBar.maxValue = health;
         fill.color = gradient.Evaluate(1f);
     }
     public void UpdateHealthBar()
     {
-        health = zombie.health;
+        health = skeleton.health;
         healthBar.value = health;
 
         fill.color = gradient.Evaluate(healthBar.normalizedValue);

@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 1
   health: 30
-  worth: 3
+  worth: 5
   isSlowed: 0
   slowDuration: 3
   pathingScript: {fileID: 0}
@@ -624,7 +624,7 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  zombie: {fileID: 3643833786591327246}
+  skeleton: {fileID: 3643833786591327246}
 --- !u!1 &7358664373359900311
 GameObject:
   m_ObjectHideFlags: 0

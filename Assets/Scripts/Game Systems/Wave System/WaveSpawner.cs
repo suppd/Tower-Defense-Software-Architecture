@@ -31,28 +31,17 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	[SerializeField]
 	private TextMeshProUGUI waveOverText;
 	[SerializeField]
-	private TextMeshProUGUI buildingPhaseText;
-	[SerializeField]
 	private TextMeshProUGUI waveCounterText;
 
-	[SerializeField]
-	private Button buildButton1;
-	[SerializeField]
-	private Button buildButton2;
-	[SerializeField]
-	private Button buildButton3;
-	[SerializeField]
-	private Button skipButton;
-
-	private GameObject gameManager;
+    [SerializeField]
+    private GameObject buildingPanel;
 
 	//local variables 
 	private int waveIndex = 0;
 	private int waveCountForText = 1;
 	private void Awake()
 	{
-		// get the gamemanager object!
-		gameManager = GameObject.FindGameObjectWithTag("GameController");
+
 	}
     private void Start()
     {
@@ -72,22 +61,16 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 		}
         else
         {
+			
+			waveOver=true;
 			// handle UI after wave has passed
-			buildButton1.gameObject.SetActive(true);
-			buildButton2.gameObject.SetActive(true);
-			buildButton3.gameObject.SetActive(true);
-			skipButton.gameObject.SetActive(true);
-			waveCountdownText.enabled = true;
-			waveOverText.enabled = true;
-			buildingPhaseText.enabled = true;
-			waveOver =true;
-			waveCounterText.text = waveCountForText.ToString();
+			setUI(true);
 		}
 
 		//win the game when waves have reached max amount + stop waves from spawning by disabling
 		if (waveIndex == waves.Length)
 		{
-			gameManager.GetComponent<GameManager>().WinLevel();
+			GameManager.Instance.WinLevel();
 			this.enabled = false;
 		}
 		//spawn waves after cooldown
@@ -98,7 +81,7 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 			return;
 		}
 
-		//update coutdown timer and the text for it
+		//update countdown timer and the text for it
 		initalCountdown -= Time.deltaTime;
 		initalCountdown = Mathf.Clamp(initalCountdown, 0f, Mathf.Infinity);
 		waveCountdownText.text = string.Format("{0:00.00}", initalCountdown);
@@ -107,13 +90,7 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	IEnumerator SpawnWave()
 	{
 		//handle UI when wave starts
-		waveCountdownText.enabled = false;
-		waveOverText.enabled = false;
-		buildingPhaseText.enabled = false;
-		buildButton1.gameObject.SetActive(false);
-		buildButton3.gameObject.SetActive(false);
-		buildButton2.gameObject.SetActive(false);
-		skipButton.gameObject.SetActive(false);
+		setUI(false);
 		//also set the skip to false so that it resets
 		skipTime = false;
 		//update the amount of rounds in the playerinfo instance
@@ -138,6 +115,14 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 		waveIndex++;
 		waveCountForText++;
 	}
+	private void setUI(bool ValueToSet) 
+	{
+        buildingPanel.SetActive(ValueToSet);
+        waveCountdownText.enabled = ValueToSet;
+        waveOverText.enabled = ValueToSet;
+        waveCounterText.text = waveCountForText.ToString();
+    }
+
 
 	private void SpawnEnemy(Monster enemy)
 	{

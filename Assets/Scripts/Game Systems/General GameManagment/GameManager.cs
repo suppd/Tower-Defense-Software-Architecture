@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager> //inherit from singelton class
 {
 	/// <summary>
 	/// the global gamemanager 
@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 	public GameObject gameOverUI;
 	public GameObject completeLevelUI;
 	public GameObject gameplayUI;
+
+    private float fixedDeltaTime;
     private void OnEnable() // subscribe to eventbus
     {
         GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
@@ -26,7 +28,8 @@ public class GameManager : MonoBehaviour
     }
     void Awake()
 	{
-		GameIsOver = false;
+        this.fixedDeltaTime = Time.fixedDeltaTime;
+        GameIsOver = false;
 		Debug.Log(PlayerInfo.Lives);
 	}
 
@@ -37,17 +40,25 @@ public class GameManager : MonoBehaviour
 			LoseLevel();
 			WaveSpawner.Instance.enabled = false;
 		}
-		//CHEATS
-		if (Input.GetKey(KeyCode.P))
-		{
-			PlayerInfo.Money++;
-		}
-        else if (Input.GetKey(KeyCode.Minus))
-        {
-            PlayerInfo.Money--;
-        }
-  
 	}
+	//cheats for ingame
+	public void AddMoney()
+	{  
+        PlayerInfo.Money+=1000;
+    }
+    public void AddTime(float timeToAdd)
+	{
+		Time.timeScale += timeToAdd;
+		Debug.Log(Time.timeScale);
+	}
+    public void SubstractTime(float timeToSubstract)
+    {
+		if (Time.timeScale > 0.01f)
+		{
+            Debug.Log(Time.timeScale);
+            Time.timeScale -= timeToSubstract;
+		}
+    }
 
     private void LoseLevel()
 	{

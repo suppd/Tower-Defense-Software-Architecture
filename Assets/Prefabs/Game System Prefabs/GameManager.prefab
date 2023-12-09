@@ -112,11 +112,6 @@ GameObject:
   - component: {fileID: 1348551402599316874}
   - component: {fileID: 1348551402599316873}
   - component: {fileID: 1348551402599316875}
-  - component: {fileID: 1348551402599316877}
-  - component: {fileID: 1348551402599316977}
-  - component: {fileID: 1348551402599316976}
-  - component: {fileID: 1348551402599316879}
-  - component: {fileID: 1348551402599316878}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -172,86 +167,6 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   moneyText: {fileID: 0}
   healthText: {fileID: 0}
---- !u!114 &1348551402599316877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348551402599316872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a98f055c0638f448aa3fbe495ee348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
-  enemy2: {fileID: 0}
-  count: 5
-  rate: 1
---- !u!114 &1348551402599316977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348551402599316872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a98f055c0638f448aa3fbe495ee348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
-  enemy2: {fileID: 0}
-  count: 5
-  rate: 1
---- !u!114 &1348551402599316976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348551402599316872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a98f055c0638f448aa3fbe495ee348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
-  enemy2: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
-  count: 5
-  rate: 1
---- !u!114 &1348551402599316879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348551402599316872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a98f055c0638f448aa3fbe495ee348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
-  enemy2: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
-  count: 5
-  rate: 1
---- !u!114 &1348551402599316878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348551402599316872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a98f055c0638f448aa3fbe495ee348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
-  enemy2: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
-  count: 5
-  rate: 1
 --- !u!1 &1348551402600784236
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +355,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: You lost!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -574,7 +489,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -710,7 +625,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1066,7 +981,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

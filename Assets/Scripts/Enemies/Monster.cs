@@ -42,11 +42,10 @@ public abstract class Monster : MonoBehaviour
     private void Awake() // pass in the path to follow
     {  
         pathingScript = GetComponent<EnemyPathing>();
-        //OnEnable();
     }
     public enum MonsterType //could define more types here in the future like goblin mage etc
     {
-        Zombie
+        Skeleton
     }
 
     private void Start()

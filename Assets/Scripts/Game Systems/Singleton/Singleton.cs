@@ -1,22 +1,17 @@
 using UnityEngine;
 
 
-    /// <summary>
-    /// Generic Singleton class pattern.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+
     public class Singleton<T> : MonoBehaviour where T : Component
     {
-        /// <summary>
-        /// Singleton instance.
-        /// </summary>
+        // Singleton instance.
+
         private static T instance;
 
-        /// <summary>
-        /// Singleton instance getter.<br/>
-        /// If there is no instance, try find one in the scene.<br/>
-        /// If still there no instance found, then it creates a new one.
-        /// </summary>
+
+        // Singleton instance getter.
+        // If there is no instance, try find one in the scene.
+        // If still there no instance found, then it creates a new one.
         public static T Instance
         {
             get
@@ -36,10 +31,9 @@ using UnityEngine;
             }
         }
 
-        /// <summary>
-        /// If no singleton instance is found then assign this one as the only instance,<br/>
-        /// else destroy it.
-        /// </summary>
+        // If no singleton instance is found then assign this one as the only instance
+        // else destroy it.
+
         protected virtual void Awake()
         {
             if (instance == null)

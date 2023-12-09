@@ -114,4 +114,4 @@ MonoBehaviour:
   slowDuration: 0
   explosionRadius: 1.5
   debuffRadius: 0
-  impactEffect: {fileID: 8173629600893020517, guid: e8f4afd3ff7342c42aefb53fba7164f0, type: 3}
+  impactEffect: {fileID: 8173629600893020517, guid: aedac378a67ebac4f86fe38cbb63aa09, type: 3}
