@@ -7,7 +7,7 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 {
 	// wavespawner class is responsible for knowing when to start a new wave when a wave is still in progress when the game is over (by winning) 
 	// and for of course keeping track of the number of the wave its on and then spawning the enemies based on a script inputed in the inspector
-
+	public bool isUnitTest = false; //FOR UNIT TEST SCENE
 	public static int EnemiesAlive = 0;
 
 	//arrray of waves to spawn which can be dragged in through the inspector 
@@ -15,6 +15,8 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 
 	public Transform spawnPoint;
 	public WayPoints wayPoints;
+
+	public WayPoints[] wayPointsTest; //for testing or if we want muiltiple paths from for example diffrent corners of the map at once but currently only for tower unittest
 
 	public bool waveOver = true;
 
@@ -45,46 +47,52 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	}
     private void Start()
     {
-		waveCounterText.text = "1";
+		if (!isUnitTest)
+		{
+			waveCounterText.text = "1";
+		}
     }
     void FixedUpdate()
 	{
-		//constantly update how many enemies are alive (i know this is an expensive method to call every frame but its the best for now)
-		EnemiesAlive = GameObject.FindGameObjectsWithTag("enemy").Length;
-		//Debug.Log("enemies alive right now : " + EnemiesAlive);
-
-		//acting based on enemiesalive variable
-		if (EnemiesAlive > 0)
+		if (!isUnitTest)
 		{
-			waveOver = false;
-			return;
-		}
-        else
-        {
-			
-			waveOver=true;
-			// handle UI after wave has passed
-			setUI(true);
-		}
+			//constantly update how many enemies are alive (i know this is an expensive method to call every frame but its the best for now)
+			EnemiesAlive = GameObject.FindGameObjectsWithTag("enemy").Length;
+			//Debug.Log("enemies alive right now : " + EnemiesAlive);
 
-		//win the game when waves have reached max amount + stop waves from spawning by disabling
-		if (waveIndex == waves.Length)
-		{
-			GameManager.Instance.WinLevel();
-			this.enabled = false;
-		}
-		//spawn waves after cooldown
-		if (initalCountdown <= 0f || skipTime == true)
-		{
-			StartCoroutine(SpawnWave());
-			initalCountdown = timeBetweenWaves;
-			return;
-		}
+			//acting based on enemiesalive variable
+			if (EnemiesAlive > 0)
+			{
+				waveOver = false;
+				return;
+			}
+			else
+			{
 
-		//update countdown timer and the text for it
-		initalCountdown -= Time.deltaTime;
-		initalCountdown = Mathf.Clamp(initalCountdown, 0f, Mathf.Infinity);
-		waveCountdownText.text = string.Format("{0:00.00}", initalCountdown);
+				waveOver = true;
+				// handle UI after wave has passed
+				setUI(true);
+			}
+
+			//win the game when waves have reached max amount + stop waves from spawning by disabling
+			if (waveIndex == waves.Length)
+			{
+				GameManager.Instance.WinLevel();
+				this.enabled = false;
+			}
+			//spawn waves after cooldown
+			if (initalCountdown <= 0f || skipTime == true)
+			{
+				StartCoroutine(SpawnWave());
+				initalCountdown = timeBetweenWaves;
+				return;
+			}
+
+			//update countdown timer and the text for it
+			initalCountdown -= Time.deltaTime;
+			initalCountdown = Mathf.Clamp(initalCountdown, 0f, Mathf.Infinity);
+			waveCountdownText.text = string.Format("{0:00.00}", initalCountdown);
+		}
 	}
 
 	IEnumerator SpawnWave()
@@ -134,5 +142,51 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	public void SetSkip(bool skip)
     {
 		skipTime = skip;
+    }
+
+	public void SpawnTestWave(int waveNum)
+	{
+		StartCoroutine(TestWaveSpawn(waveNum));
+	}
+	
+	public IEnumerator TestWaveSpawn(int waveNum)
+	{
+		//handle UI when wave starts
+		//also set the skip to false so that it resets
+		skipTime = false;
+		//update the amount of rounds in the playerinfo instance
+		PlayerInfo.Rounds++;
+		Debug.Log(PlayerInfo.Rounds);
+
+		//get the wavescript that matches the current wave's index (so waveindex = 1 it gets the second wavescript in the array)
+		Wave wave = waves[waveNum];
+		EnemiesAlive = wave.count;
+
+		for (int i = 0; i < wave.count; i++)
+		{
+			
+			//spawn the initial enemy gives my the wave script
+			SpawnEnemy(wave.enemy);
+
+			yield return new WaitForSeconds(1f / wave.rate);
+			if (wave.enemy2 != null) // if the wave script has a second enemy dragged in spawn these too!
+			{
+				SpawnEnemy(wave.enemy2);
+			}
+			yield return new WaitForSeconds(1f / wave.rate);
+		}
+	}
+
+
+	// FOR CANNON UNIT TEST SO I CAN SPAWN 3 WAVES IN 3 DIFFRENT LINES
+	public void SpawnDiffrentWaypointTest(int wayPoint)
+	{
+        Wave wave = waves[3];
+        SpawnMultipleWaypointEnemy(wave.enemy, wayPoint);
+    }
+    public void SpawnMultipleWaypointEnemy(Monster enemy, int wayPoint)
+    {
+        Monster monster = Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+        monster.pathingScript.wayPoints = wayPointsTest[wayPoint];
     }
 }
