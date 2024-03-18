@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerShooting : MonoBehaviour
+public class TowerShooting : MonoBehaviour, ITowerObserver
 {
     // this script is just responsble for making it so that every tower prefab can shoot and hit an enemy
-    public TowerInfo towerInfo;
-    [Header("Turret Variables")]
+    [Header("Turret Refrences")]
+    [SerializeField]
+    private TowerInfo towerInfo;
     [SerializeField]
     private GameObject bulletPrefab; // cannonball prefab (any of the 3 diffrent ones can be put in)
     [SerializeField]
     private Transform bulletSpawn;
+    [Header("Turret Variables")]
     [SerializeField]
     private float range = 2f;
+    [SerializeField]
+    private float defaultTowerAngle = 210;
     //local variables
     private Transform target;
     private float fireCountdown = 0f;
-    private bool TargetInRange = false;
 
     //upgradable values
     public int fireRate;
@@ -27,17 +30,13 @@ public class TowerShooting : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.1f);
-        fireRate = towerInfo.towerFireRate;
-        bulletDamage = towerInfo.towerDamage;
-        slowDuration = towerInfo.towerSlowDuration;
-        explosionRadius = towerInfo.towerExplosionRadius;
     }
 
     private void Update()
     {
         if (target == null)
         {
-            this.transform.eulerAngles.Set(0, 210, 0);
+            this.transform.eulerAngles.Set(0, defaultTowerAngle, 0);
             return;
         }
         if (fireCountdown < 0f)
@@ -46,10 +45,6 @@ public class TowerShooting : MonoBehaviour
             Shoot();
         }
         fireCountdown -= Time.deltaTime;
-        if (TargetInRange == true)
-        {
-       
-        }
     }
     void UpdateTarget()
     {
@@ -81,14 +76,25 @@ public class TowerShooting : MonoBehaviour
         GameObject Bullet_ = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         CannonBall bullet = Bullet_.GetComponent<CannonBall>();
         if (bullet != null)
-        { // here it gives the bullet that it spawns the damage values that the tower has (because the bullet is actually what makes damage come to  the enemy)
+        { // here it gives the bullet that it spawns the damage values that the tower has (because the bullet is actually what damages the enemy)
             bullet.setBulletDamage(bulletDamage);
             bullet.setBulletSlowDuration(slowDuration);
             bullet.setBulletExplosionRadius(explosionRadius);
             bullet.FireAtTarget(target);
         }
     }
-
+    public void NotifyNormalTowerUpgrade(int newLevel, float newFireRate, int newDamage)
+    {
+        bulletDamage = newDamage;
+    }
+    public void NotifyAOETowerUpgrade(int newLevel, float newFireRate, float newRadius)
+    {
+        explosionRadius = newRadius;
+    }
+    public void NotifyDebuffTowerUpgrade(int newLevel, float newFireRate, float newDebuffDuration)
+    {
+        slowDuration = newDebuffDuration;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;

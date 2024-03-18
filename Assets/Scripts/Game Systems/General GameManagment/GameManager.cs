@@ -46,18 +46,17 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	public void AddMoney()
 	{
 		PlayerInfo.Instance.AddPlayerMoney(1000);
-
 	}
     public void AddTime(float timeToAdd)
 	{
 		Time.timeScale += timeToAdd;
-		Debug.Log(Time.timeScale);
+		//Debug.Log(Time.timeScale);
 	}
     public void SubstractTime(float timeToSubstract)
     {
 		if (Time.timeScale > 0.01f)
 		{
-            Debug.Log(Time.timeScale);
+            //Debug.Log(Time.timeScale);
             Time.timeScale -= timeToSubstract;
 		}
     }

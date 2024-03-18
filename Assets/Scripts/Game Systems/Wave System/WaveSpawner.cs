@@ -10,9 +10,12 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 
 	public static int EnemiesAlive = 0;
 	//arrray of waves to spawn which can be dragged in through the inspector 
+	[Header("Here we configure waves in the inspector just drag the wave.cs script and then drag the enemy prefabs you want!")]
 	public Wave[] waves;
+	[Header("Required Refrences")]
 	public Transform spawnPoint;
 	public WayPoints wayPoints;
+	//public so that game state can be relayed to game manager
 	public bool waveOver = true;
 	//for skip button
 	private bool skipTime = false;
@@ -21,12 +24,13 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	private float timeBetweenWaves = 60f;
 	[SerializeField]
 	private float initalCountdown = 5f;
+	[Header("UI Required Refrences")]
 	[SerializeField]
 	private TextMeshProUGUI waveCountdownText;
 	[SerializeField]
 	private TextMeshProUGUI waveOverText;
 	[SerializeField]
-	private TextMeshProUGUI waveCounterText;
+	private TextMeshProUGUI waveCounterText;
 	[SerializeField]
     private GameObject buildingPanel;
 	//local variables 

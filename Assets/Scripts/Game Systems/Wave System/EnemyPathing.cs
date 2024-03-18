@@ -10,7 +10,7 @@ public class EnemyPathing : MonoBehaviour
     private void Awake()
     {
         //set the speed of the monster with the given individual speed 
-        speed = GetComponent<Monster>().MovementSpeed;
+        speed = GetComponent<Monster>().movementSpeed;
     }
     void Start()
     {
@@ -32,7 +32,7 @@ public class EnemyPathing : MonoBehaviour
     }
     void Update()
     {
-        speed = GetComponent<Monster>().MovementSpeed;
+        speed = GetComponent<Monster>().movementSpeed;
     }
     IEnumerator FollowPath(Vector3[] waypoints)
     {

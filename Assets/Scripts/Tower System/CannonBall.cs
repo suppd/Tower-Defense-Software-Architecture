@@ -4,7 +4,6 @@ using UnityEngine;
 public class CannonBall : MonoBehaviour
 {
     // this script is responsible for all three types of bullets (standard,aoe dmg,debuff)
-
     //public variables for other classes 
     public float speed = 5f;
     public int damage = 1;
@@ -16,17 +15,19 @@ public class CannonBall : MonoBehaviour
     private GameObject impactEffect;
     private Transform target;
     //three methods for updating the values 
-    public void setBulletDamage(int inputDamage)
+    //Not the greatest approach if I wanted to make the project more scalabe I would make a "projectile" super class or something and then let this class inherit from there 
+    //by doing that I can make an enum list of bullet types and then based on bullet type I can change the corresponding value i want to change using only one method
+    public void setBulletDamage(int damageToSet)
     {
-        damage = inputDamage;
+        damage = damageToSet;
     }
-    public void setBulletSlowDuration(float inputDuration)
+    public void setBulletSlowDuration(float durationToSet)
     {
-        slowDuration = inputDuration;
+        slowDuration = durationToSet;
     }
-    public void setBulletExplosionRadius(float inputRadius)
+    public void setBulletExplosionRadius(float radiusToSet)
     {
-        explosionRadius = inputRadius;
+        explosionRadius = radiusToSet;
     }
     public void FireAtTarget(Transform _target)
     {
@@ -94,7 +95,7 @@ public class CannonBall : MonoBehaviour
         Monster e = enemy.GetComponent<Monster>();
         if (e != null)
         {
-            e.TakeDamage(damage);
+            e.Damage(damage);
         }
     }
     void Slow(Transform enemy)

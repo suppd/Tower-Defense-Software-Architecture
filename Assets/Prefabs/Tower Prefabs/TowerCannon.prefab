@@ -150,7 +150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8335065976888560444
 RectTransform:
   m_ObjectHideFlags: 0
@@ -461,6 +461,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2040253750945521751, guid: c397ec4deca4bb945a3cd47edc68ae3a, type: 3}
   bulletSpawn: {fileID: 4610424630949621215}
   range: 2.46
+  defaultTowerAngle: 210
   fireRate: 1
   bulletDamage: 8
   slowDuration: 3
@@ -476,8 +477,9 @@ GameObject:
   - component: {fileID: 4067099813870521334}
   - component: {fileID: 1143604441476252755}
   - component: {fileID: 2898648447933526169}
-  - component: {fileID: 1546819337398475654}
+  - component: {fileID: 855777154385991760}
   - component: {fileID: 4718228353201541186}
+  - component: {fileID: 1546819337398475654}
   m_Layer: 0
   m_Name: TowerCannon
   m_TagString: Untagged
@@ -554,7 +556,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1546819337398475654
+--- !u!114 &855777154385991760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -563,22 +565,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3691523531608101196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b86ec3fa0ccb9274e9743e8e7cf9a154, type: 3}
+  m_Script: {fileID: 11500000, guid: 1028b1343e67b384b9ec06bef25681ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerShootingScipt: {fileID: 4610424629805480087}
-  tower: {fileID: 3691523531608101196}
+  towerShootScript: {fileID: 4610424629805480087}
+  towerPrefab: {fileID: 3691523531608101196}
   levelDisplay: {fileID: 3822628846678286336}
+  towerLevel: 1
   towerPrice: 10
-  towerDamage: 8
-  towerFireRate: 1
-  towerSlowDuration: 0
-  towerExplosionRadius: 0
-  allTowerLevelGain: 1
-  allTowerFireRateGain: 1
-  normalTowerDamageGain: 1
-  AOETowerRadiusGain: 0.5
-  DebuffTowerSlowDurationGain: 1
+  towerUpgradePrice: 5
+  towerLevelGain: 1
+  towerFireRateGain: 1
+  damageIncrease: 1
 --- !u!114 &4718228353201541186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +590,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerUpgradeButton: {fileID: 4955954933224659644}
+--- !u!114 &1546819337398475654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691523531608101196}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b86ec3fa0ccb9274e9743e8e7cf9a154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerShootingScipt: {fileID: 4610424629805480087}
+  tower: {fileID: 3691523531608101196}
+  levelDisplay: {fileID: 3822628846678286336}
+  towerPrice: 10
+  towerUpgradePrice: 5
+  towerDamage: 8
+  towerFireRate: 1
+  towerSlowDuration: 0
+  towerExplosionRadius: 0
+  allTowerLevelGain: 1
+  allTowerFireRateGain: 1
+  normalTowerDamageGain: 1
+  AOETowerRadiusGain: 0.5
+  DebuffTowerSlowDurationGain: 1
 --- !u!1 &3721580687194886512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,9 +1035,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1546819337398475654}
-        m_TargetAssemblyTypeName: TowerInfo, Assembly-CSharp
-        m_MethodName: LevelUpStandardTower
+      - m_Target: {fileID: 855777154385991760}
+        m_TargetAssemblyTypeName: TowerBase, Assembly-CSharp
+        m_MethodName: UpgradeTower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

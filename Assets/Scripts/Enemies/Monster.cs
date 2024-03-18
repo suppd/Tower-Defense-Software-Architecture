@@ -11,7 +11,7 @@ public abstract class Monster : MonoBehaviour
     /// also jsut handles general stuff enemies need to have like take damage method get slowed method and die methods etc
     /// </summary>
     //each monster should input its own movementspeed and health
-    public float MovementSpeed = 0f;
+    public float movementSpeed = 0f;
     public float health;
     public int worth = 0;
     public bool isSlowed = false;
@@ -23,7 +23,7 @@ public abstract class Monster : MonoBehaviour
     [SerializeField]
     private Collider collider;
     private bool isDead = false;
-    private float OriginalMovement;
+    private float originalMovement;
     private void OnEnable() // subscribe to eventbus
     {
         GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
@@ -39,15 +39,16 @@ public abstract class Monster : MonoBehaviour
     }
     public enum MonsterType //could define more types here in the future like goblin mage etc
     {
-        Skeleton
+        Skeleton,
+        ArmoredSkeleton
     }
     private void Start()
     {
-        OriginalMovement = MovementSpeed;
+        originalMovement = movementSpeed;
         healthBarScript.UpdateHealthBar(); // run once so that healthbar is properly intialized
     }
     public abstract MonsterType GetMonsterType();
-    public void TakeDamage(float amount)
+    public void Damage(float amount)
     {  
         health -= amount;
         healthBarScript.UpdateHealthBar();
@@ -64,12 +65,12 @@ public abstract class Monster : MonoBehaviour
     public void Slow(float pct)
     {
         isSlowed = true;
-        MovementSpeed = MovementSpeed - pct;
+        movementSpeed = movementSpeed - pct;
     }
     IEnumerator Slowtimer()
     {
         yield return new WaitForSeconds(slowDuration);
-        MovementSpeed = OriginalMovement;
+        movementSpeed = originalMovement;
         isSlowed=false;
     }
     public void Die()
@@ -98,7 +99,7 @@ public abstract class Monster : MonoBehaviour
     }
     void Update()
     {
-        // put shared code between goblin and zombie here (if needed)
+        // put shared code between monster types here (if needed)
     }
 }
 

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class TowerInfo : MonoBehaviour
 {
+    /// <summary>
+    /// OUTDATED!!!!!!!!!!!!!!!!!!!!!!!!!! (check TowerBase.cs)
+    /// </summary>
     // this class is responsible for managing each towers own values and information like damage firerate and such
     [SerializeField]
     private TowerShooting towerShootingScipt;
