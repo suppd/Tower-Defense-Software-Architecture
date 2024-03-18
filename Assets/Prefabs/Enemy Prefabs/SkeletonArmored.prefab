@@ -377,6 +377,7 @@ MonoBehaviour:
   isSlowed: 0
   slowDuration: 3
   pathingScript: {fileID: 0}
+  healthBarScript: {fileID: 1661404338143519213}
   deathEffect: {fileID: 6840558009579421072, guid: 5441240a38a0c5d4da4d37a53b4660c9, type: 3}
   collider: {fileID: -2211427147010621343}
 --- !u!54 &-8165226026763627201
@@ -624,7 +625,7 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  skeleton: {fileID: 3643833786591327246}
+  monster: {fileID: 3643833786591327246}
 --- !u!1 &7358664373359900311
 GameObject:
   m_ObjectHideFlags: 0

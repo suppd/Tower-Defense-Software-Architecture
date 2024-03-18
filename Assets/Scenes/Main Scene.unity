@@ -10859,9 +10859,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f123f8c853a11e842b624ddb95ae45fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalButton: {fileID: 1776043301}
-  AOEButton: {fileID: 1662517593}
-  DebuffButton: {fileID: 1693763658}
+  buttons:
+  - {fileID: 1776043301}
+  - {fileID: 1662517593}
+  - {fileID: 1693763658}
+  prefabs:
+  - {fileID: 3691523531608101196, guid: 34ad3814fe104f44dae6bd55df002fbe, type: 3}
+  - {fileID: 3691523531608101196, guid: 8f5a16ed94d11cb469031e04aa181d8e, type: 3}
+  - {fileID: 3691523531608101196, guid: 64406c4026dd229448a78f4d58f51944, type: 3}
 --- !u!1 &1776043299
 GameObject:
   m_ObjectHideFlags: 0
@@ -13390,7 +13395,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2180489178922589836, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: rate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180489178922589836, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
       propertyPath: enemy
+      value: 
+      objectReference: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
+    - target: {fileID: 2180489178922589836, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180489178922589836, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[0]
       value: 
       objectReference: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
     - target: {fileID: 2180489178922589837, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
@@ -13405,14 +13422,38 @@ PrefabInstance:
       propertyPath: enemy2
       value: 
       objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
+    - target: {fileID: 2180489178922589837, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180489178922589837, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
+    - target: {fileID: 2180489178922589837, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
     - target: {fileID: 2180489178922589936, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
       propertyPath: rate
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2180489178922589936, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
       propertyPath: enemy
       value: 
       objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
+    - target: {fileID: 2180489178922589936, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180489178922589936, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
+    - target: {fileID: 2180489178922589936, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2180489178922589937, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
       propertyPath: panel
       value: 
@@ -13473,6 +13514,18 @@ PrefabInstance:
       propertyPath: enemy2
       value: 
       objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
+    - target: {fileID: 2180489178922589938, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180489178922589938, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
+    - target: {fileID: 2180489178922589938, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
     - target: {fileID: 2180489178922589939, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
       propertyPath: rate
       value: 2.5
@@ -13485,6 +13538,18 @@ PrefabInstance:
       propertyPath: enemy2
       value: 
       objectReference: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
+    - target: {fileID: 2180489178922589939, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180489178922589939, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 3643833786591327246, guid: 843badc99cacce14b889d52ace6596f0, type: 3}
+    - target: {fileID: 2180489178922589939, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: -5607714752654111694, guid: fa9d4b470f38fdc43bc39b040e4739b7, type: 3}
     - target: {fileID: 2180489178922589941, guid: 4083d71d3a8f4d9419bd975d6b60fe33, type: 3}
       propertyPath: m_Name
       value: WaveSpawner

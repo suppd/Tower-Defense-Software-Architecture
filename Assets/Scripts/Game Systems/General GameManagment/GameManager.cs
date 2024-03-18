@@ -12,12 +12,14 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	/// </summary>
 	//variables
 	public static bool GameIsOver;
-
-	public GameObject gameOverUI;
-	public GameObject completeLevelUI;
-	public GameObject gameplayUI;
-
+	[SerializeField]
+	private GameObject gameOverUI;
+	[SerializeField]
+	private GameObject completeLevelUI;
+	[SerializeField]
+	private GameObject gameplayUI;
     private float fixedDeltaTime;
+	[SerializeField]
     private void OnEnable() // subscribe to eventbus
     {
         GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
@@ -30,12 +32,11 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	{
         this.fixedDeltaTime = Time.fixedDeltaTime;
         GameIsOver = false;
-		Debug.Log(PlayerInfo.Lives);
 	}
 
 	void Update()
 	{
-		if (PlayerInfo.Lives <= 0)
+		if (PlayerInfo.Instance.GetPlayerLivesAmount() <= 0)
 		{
 			LoseLevel();
 			WaveSpawner.Instance.enabled = false;
@@ -43,9 +44,10 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	}
 	//cheats for ingame
 	public void AddMoney()
-	{  
-        PlayerInfo.Money+=1000;
-    }
+	{
+		PlayerInfo.Instance.AddPlayerMoney(1000);
+
+	}
     public void AddTime(float timeToAdd)
 	{
 		Time.timeScale += timeToAdd;
@@ -59,14 +61,12 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
             Time.timeScale -= timeToSubstract;
 		}
     }
-
     private void LoseLevel()
 	{
 		GameIsOver = true;
 		gameOverUI.SetActive(true);
 		gameplayUI.SetActive(false);
 	}
-
 	public void WinLevel()
 	{
 		GameIsOver = true;
@@ -80,7 +80,6 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
     }
     private void HandleEnemyEnter(object sender, EventArgs eventArgs)
     {
-        PlayerInfo.Lives--;
-        Debug.Log(PlayerInfo.Lives);
+		PlayerInfo.Instance.SubstractPlayerLives(1);
     }
 }

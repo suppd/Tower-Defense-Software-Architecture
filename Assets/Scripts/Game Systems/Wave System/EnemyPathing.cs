@@ -5,10 +5,8 @@ using UnityEngine;
 public class EnemyPathing : MonoBehaviour
 {
     //this class is responsible for letting the enemies follow the given waypoints so the level designer can create a set path
-
     public WayPoints wayPoints;
     public float speed;
-
     private void Awake()
     {
         //set the speed of the monster with the given individual speed 
@@ -25,7 +23,6 @@ public class EnemyPathing : MonoBehaviour
                 waypoints[i] = wayPoints.waypoints[i].gameObject.transform.position;
                 //waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
             }
-
             StartCoroutine(FollowPath(waypoints));
         }
         else
@@ -33,25 +30,19 @@ public class EnemyPathing : MonoBehaviour
             Debug.Log("cant find waypoints script");
         }
     }
-
     void Update()
     {
         speed = GetComponent<Monster>().MovementSpeed;
     }
-
     IEnumerator FollowPath(Vector3[] waypoints)
     {
         transform.position = waypoints[0];
-
         int targetWaypointIndex = 1;
-        Vector3 targetWaypoint = waypoints[targetWaypointIndex];
-        
-     
+        Vector3 targetWaypoint = waypoints[targetWaypointIndex];  
         while (true)
         {
             transform.LookAt(targetWaypoint);
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
-          
+            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);    
             Vector3 oldnewPositionDiffrence = targetWaypoint - transform.position;
             //Debug.Log(oldnewPositionDiffrence.magnitude);
             if (oldnewPositionDiffrence.magnitude < 0.5f)
@@ -64,10 +55,8 @@ public class EnemyPathing : MonoBehaviour
                     //Debug.Log("Destroy");
                 }
                
-            }
-            
+            }         
             yield return null;
         }
-       
     }
 }

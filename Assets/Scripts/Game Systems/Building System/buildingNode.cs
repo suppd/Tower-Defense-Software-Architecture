@@ -17,10 +17,8 @@ public class buildingNode : MonoBehaviour
     private MeshRenderer rend;
     private Color startColor;
 
-    private GameObject gameManager;
     private void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameController");
         rend = GetComponent<MeshRenderer>();
         startColor = rend.material.color;
     }
@@ -34,9 +32,9 @@ public class buildingNode : MonoBehaviour
                 Debug.Log("cant build turret ");
                 return;
             }
-            if (PlayerInfo.Money >= PlayerInfo.buildCost)
+            if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= PlayerInfo.buildCost)
             {
-                gameManager.GetComponent<PlayerInfo>().SpendMoneyOnBuild();
+                PlayerInfo.Instance.SpendMoneyOnBuild();
                 GameObject turretToBuild = BuildingManagerScript.Instance.GetTurretToBuild();
                 turret = (GameObject)Instantiate(turretToBuild, transform.position, transform.rotation);
             }

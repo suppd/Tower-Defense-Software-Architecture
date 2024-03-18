@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OnTowerButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-
 {
     public Image TowerPanel;
     public void OnPointerEnter(PointerEventData eventData)
@@ -16,5 +15,4 @@ public class OnTowerButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         TowerPanel.gameObject.SetActive(false);
     }
-
 }

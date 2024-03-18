@@ -19,25 +19,24 @@ public class BuildingManagerScript : Singleton<BuildingManagerScript> //inherit 
         turretToBuild = standardTurretPrefab;
     }
     private GameObject turretToBuild;
-
     public GameObject GetTurretToBuild()
     {
         return turretToBuild;
     }
-
     public void setTurretToStandard()
     {
-        PlayerInfo.buildCost = 10;
+        PlayerInfo.buildCost = standardTurretPrefab.GetComponent<TowerInfo>().towerPrice;
         turretToBuild = standardTurretPrefab;
     }
     public void setTurretToAOE()
     {
-        PlayerInfo.buildCost = 20;
+
+        PlayerInfo.buildCost = aoeTurretPrefab.GetComponent<TowerInfo>().towerPrice;
         turretToBuild = aoeTurretPrefab;
     }
     public void setTurretToDebuff()
     {
-        PlayerInfo.buildCost = 30;
+        PlayerInfo.buildCost = debuffTurretPrefab.GetComponent<TowerInfo>().towerPrice;
         turretToBuild = debuffTurretPrefab;
     }
 }

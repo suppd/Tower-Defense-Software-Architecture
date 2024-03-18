@@ -7,7 +7,7 @@ public class BaseEnterEvent : EventArgs
 {
     public BaseEnterEvent(Collider enemyCollider)
     {
-        BoxCollider = enemyCollider;
+        boxCollider = enemyCollider;
     }
-    public Collider BoxCollider = null;
+    public Collider boxCollider = null;
 }

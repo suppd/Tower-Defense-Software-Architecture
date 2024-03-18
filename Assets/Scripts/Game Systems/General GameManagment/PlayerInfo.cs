@@ -4,20 +4,21 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class PlayerInfo : MonoBehaviour
+public class PlayerInfo : Singleton<PlayerInfo>
 {
 	/// <summary>
 	/// this class is responsible of keeping track of all player related things like money health and rounds passed and also updating them and displaying them correctly!
 	/// </summary>
 
 
-	public static int Money;
-	public int startMoney = 100;
-	public static int Lives;
-	public int startLives = 20;
+	private int money;
+	[SerializeField]
+	private int startMoney = 100;
+	private  int lives;
+	[SerializeField]
+	private int startLives = 20;
 
-	public static int Rounds;
-
+	public static int rounds;
 	public static int upgradeCost = 5;
 	public static int buildCost = 10;
 
@@ -30,34 +31,49 @@ public class PlayerInfo : MonoBehaviour
 
     void Awake()
 	{
-		Money = startMoney;
-		Lives = startLives;
+		money = startMoney;
+		lives = startLives;
 
-		moneyText.text = Money.ToString();
-		healthText.text = Lives.ToString();
+		moneyText.text = money.ToString();
+		healthText.text = lives.ToString();
 
-		Rounds = 0;
+		rounds = 0;
 	}
     private void FixedUpdate()
     {
-		moneyText.text = Money.ToString();
-		healthText.text = Lives.ToString();
+		moneyText.text = money.ToString();
+		healthText.text = lives.ToString();
 	}
 
 	public void SpendMoneyOnUpgrade()
     {
-		if (Money >= upgradeCost)
+		if (money >= upgradeCost)
 		{
-			Money = Money - upgradeCost;
+			money = money - upgradeCost;
 		}
     }
 
 	public void SpendMoneyOnBuild()
 	{
-		if (Money >= buildCost)
+		if (money >= buildCost)
 		{
-			Money = Money - buildCost;
+			money = money - buildCost;
 		}
 	}
-
+	public int GetPlayerLivesAmount()
+    {
+		return lives;
+    }
+	public int GetPlayerMoneyAmount()
+	{
+		return money;
+	}
+	public void AddPlayerMoney(int amountToAdd)
+    {
+		money += amountToAdd;
+    }
+	public void SubstractPlayerLives(int amountToSubstact)
+    {
+		lives -= amountToSubstact;
+    }
 }

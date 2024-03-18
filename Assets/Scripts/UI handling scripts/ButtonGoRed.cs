@@ -6,37 +6,23 @@ using UnityEngine.UI;
 public class ButtonGoRed : MonoBehaviour
 {
     //script for makign build buttons color red if you dont have enough money for the corresponding tower build!
-
-    public Button NormalButton;
-    public Button AOEButton;
-    public Button DebuffButton;
-
+    [SerializeField]
+    private List<Button> buttons;
+    [SerializeField]
+    private List<GameObject> prefabs;
 
     public void Update()
     {
-        if (PlayerInfo.Money < 30)
+        for (int i = 0; i < prefabs.Count; i++)
         {
-            DebuffButton.image.color = Color.red;
-        }
-        else
-        {
-            DebuffButton.image.color = Color.white;
-        }
-        if (PlayerInfo.Money < 20)
-        {
-            AOEButton.image.color = Color.red;
-        }
-        else
-        {
-            AOEButton.image.color = Color.white;
-        }
-        if (PlayerInfo.Money < 10)
-        {
-            NormalButton.image.color = Color.red;
-        }
-        else
-        {
-            NormalButton.image.color = Color.white;
+            if (PlayerInfo.Instance.GetPlayerMoneyAmount() < prefabs[i].GetComponent<TowerInfo>().towerPrice)
+            {
+                buttons[i].image.color = Color.red;
+            }
+            else
+            {
+                buttons[i].image.color = Color.white;
+            }
         }
     }
 }

@@ -12,12 +12,9 @@ public class CannonBall : MonoBehaviour
     public float slowDuration = 3;
     public float explosionRadius = 0f;
     public float debuffRadius = 0f;
-
     [SerializeField]
     private GameObject impactEffect;
-
     private Transform target;
-
     //three methods for updating the values 
     public void setBulletDamage(int inputDamage)
     {
@@ -35,7 +32,6 @@ public class CannonBall : MonoBehaviour
     {
         target = _target;
     }
-
     void Update()
     {
         if (target == null)
@@ -43,27 +39,20 @@ public class CannonBall : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Vector3 dir = target.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
-
         if (dir.magnitude <= distanceThisFrame)
         {
-            
             HitTarget();
             return;
         }
-
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         transform.LookAt(target);
-
     }
-
     void HitTarget()
     {
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 5f);
-
         if (explosionRadius > 0f)
         {
             Explode();
@@ -76,10 +65,8 @@ public class CannonBall : MonoBehaviour
         {
             Damage(target);
         }
-
         Destroy(gameObject);
     }
-
     void Explode()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -102,22 +89,17 @@ public class CannonBall : MonoBehaviour
             }
         }
     }
-
     void Damage(Transform enemy)
     {
         Monster e = enemy.GetComponent<Monster>();
-
         if (e != null)
         {
             e.TakeDamage(damage);
-            
         }
     }
-
     void Slow(Transform enemy)
     {
         Monster e = enemy.GetComponent<Monster>();
-
         if (e != null)
         {
             if (!e.isSlowed)

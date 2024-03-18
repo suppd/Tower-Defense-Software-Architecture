@@ -522,6 +522,7 @@ MonoBehaviour:
   towerShootingScipt: {fileID: 4610424629805480087}
   tower: {fileID: 3691523531608101196}
   levelDisplay: {fileID: 7522804311973291273}
+  towerPrice: 30
   towerDamage: 0
   towerFireRate: 1
   towerSlowDuration: 3

@@ -7,36 +7,35 @@ using UnityEngine.Events;
 
 public class EventBus 
 {
-    public Dictionary<Type, List<EventHandler>> _subscriberByType;
+    public Dictionary<Type, List<EventHandler>> subscriberByType;
 
     public EventBus()
     {
-        _subscriberByType = new Dictionary<Type, List<EventHandler>>(); //initialize the dictionary so we dont get an error
+        subscriberByType = new Dictionary<Type, List<EventHandler>>(); //initialize the dictionary so we dont get an error
     }
 
     public void Subscribe<T>(EventHandler eventHandler) where T : EventArgs //put constraints on the subscribe methods so it can only get event types
     {
         var type = typeof(T);
-        if (!_subscriberByType.TryGetValue(type,out var subscribers)) //if the passed in eventhandler is not in the dictonary add it
+        if (!subscriberByType.TryGetValue(type,out var subscribers)) //if the passed in eventhandler is not in the dictonary add it
         {
-            _subscriberByType.Add(type, new List<EventHandler>());
+            subscriberByType.Add(type, new List<EventHandler>());
         }
 
-        _subscriberByType[type].Add(eventHandler);
+        subscriberByType[type].Add(eventHandler);
     }
     public void UnSubscribe<T>(EventHandler eventHandler) where T : EventArgs
     {
         var type = typeof(T);
-        if (!_subscriberByType.TryGetValue(type, out var subscribers)) // if passed in eventhanler is in the dictionary remove it
+        if (!subscriberByType.TryGetValue(type, out var subscribers)) // if passed in eventhanler is in the dictionary remove it
         {
-            _subscriberByType[type].Remove(eventHandler);
+            subscriberByType[type].Remove(eventHandler);
         }
 
     }
-    
     public void Publish(object sender, EventArgs eventArgs)
     {
-        if (_subscriberByType.TryGetValue(eventArgs.GetType(), out var subscribers))
+        if (subscriberByType.TryGetValue(eventArgs.GetType(), out var subscribers))
         {
             foreach (var subscriber in subscribers) //send the eventargs data to each subscribed member in the dictionary
             {
