@@ -5,29 +5,54 @@ public class CannonBall : MonoBehaviour
 {
     // this script is responsible for all three types of bullets (standard,aoe dmg,debuff)
     //public variables for other classes 
-    public float speed = 5f;
-    public int damage = 1;
-    public int slowAmount = 50;
-    public float slowDuration = 3;
-    public float explosionRadius = 0f;
-    public float debuffRadius = 0f;
+    public float Speed = 5f;
+    public int Damage = 1;
+    public int SlowAmount = 2;
+    public float SlowDuration = 3;
+    public float ExplosionRadius = 0f;
+    public float DebuffRadius = 0f;
     [SerializeField]
     private GameObject impactEffect;
     private Transform target;
     //three methods for updating the values 
     //Not the greatest approach if I wanted to make the project more scalabe I would make a "projectile" super class or something and then let this class inherit from there 
     //by doing that I can make an enum list of bullet types and then based on bullet type I can change the corresponding value i want to change using only one method
+    enum Type
+    {
+        NORMAL,
+        AOE,
+        DEBUFF
+    }
+    private Type cannonBallType;
+    public void CheckCannonBallType()
+    {
+        if (ExplosionRadius > 0f)
+        {
+            cannonBallType = Type.AOE;
+            //Debug.Log("type set to AOE");
+        }
+        else if (SlowDuration > 0f)
+        {
+            cannonBallType = Type.DEBUFF;
+           // Debug.Log("type set to DEBUFF");
+        }
+        else if (ExplosionRadius == 0 || SlowDuration == 0)
+        {
+            cannonBallType = Type.NORMAL;
+            //Debug.Log("type set to NORMAL");
+        }
+    }
     public void setBulletDamage(int damageToSet)
     {
-        damage = damageToSet;
+        Damage = damageToSet;
     }
     public void setBulletSlowDuration(float durationToSet)
     {
-        slowDuration = durationToSet;
+        SlowDuration = durationToSet;
     }
     public void setBulletExplosionRadius(float radiusToSet)
     {
-        explosionRadius = radiusToSet;
+        ExplosionRadius = radiusToSet;
     }
     public void FireAtTarget(Transform _target)
     {
@@ -41,47 +66,48 @@ public class CannonBall : MonoBehaviour
             return;
         }
         Vector3 dir = target.position - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;
+        float distanceThisFrame = Speed * Time.deltaTime;
         if (dir.magnitude <= distanceThisFrame)
         {
-            HitTarget();
+            ShootTarget();
             return;
         }
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         transform.LookAt(target);
     }
-    void HitTarget()
+    void ShootTarget()
     {
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 5f);
-        if (explosionRadius > 0f)
+        Destroy(effectIns, 3f);
+        switch (cannonBallType)
         {
-            Explode();
-        }
-        if (debuffRadius > 0f)
-        {
-            Debuff();
-        }
-        else
-        {
-            Damage(target);
+            case Type.NORMAL:
+                DamageEnemy(target);
+                break;
+            case Type.AOE:
+                Debug.Log("exploding");
+                Explode();
+                break;
+            case Type.DEBUFF:
+                Debuff();
+                break;
         }
         Destroy(gameObject);
     }
     void Explode()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosionRadius);
         foreach (Collider collider in colliders)
         {
             if (collider.tag == "enemy")
             {
-                Damage(collider.transform);
+                DamageEnemy(collider.transform);
             }
         }
     }
     void Debuff()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosionRadius);
         foreach (Collider collider in colliders)
         {
             if (collider.tag == "enemy")
@@ -90,12 +116,12 @@ public class CannonBall : MonoBehaviour
             }
         }
     }
-    void Damage(Transform enemy)
+    void DamageEnemy(Transform enemy)
     {
         Monster e = enemy.GetComponent<Monster>();
         if (e != null)
         {
-            e.Damage(damage);
+            e.Damage(Damage);
         }
     }
     void Slow(Transform enemy)
@@ -105,9 +131,9 @@ public class CannonBall : MonoBehaviour
         {
             if (!e.isSlowed)
             {
-                e.slowDuration = slowDuration;
+                e.slowDuration = SlowDuration;
                 Debug.Log("montser slowed!");
-                e.GetSlowed(slowAmount);
+                e.GetSlowed(SlowAmount);
             }
         }
     }

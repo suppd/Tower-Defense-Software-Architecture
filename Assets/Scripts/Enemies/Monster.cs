@@ -11,13 +11,16 @@ public abstract class Monster : MonoBehaviour
     /// also jsut handles general stuff enemies need to have like take damage method get slowed method and die methods etc
     /// </summary>
     //each monster should input its own movementspeed and health
-    public float movementSpeed = 0f;
-    public float health;
-    public int worth = 0;
+    //all public vars that need to be accessed by other classes
+    public float MovementSpeed = 0f;
+    public float Health;
     public bool isSlowed = false;
     public float slowDuration = 3f;
     public EnemyPathing pathingScript; //public so it can be accessed in the wavespawner class
-    public HealthBar healthBarScript;
+    [SerializeField]
+    private HealthBar healthBarScript;
+    [SerializeField]
+    private int moneyValue = 0;
     [SerializeField]
     private GameObject deathEffect;
     [SerializeField]
@@ -26,12 +29,12 @@ public abstract class Monster : MonoBehaviour
     private float originalMovement;
     private void OnEnable() // subscribe to eventbus
     {
-        GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.GlobalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     private void OnDestroy() //unsubscribe to eventbus
     {
         Debug.Log("unsubscribing from eventbus because im being destroyed :(");
-        GlobalBus.globalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.GlobalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     private void Awake() // pass in the path to follow
     {  
@@ -44,15 +47,15 @@ public abstract class Monster : MonoBehaviour
     }
     private void Start()
     {
-        originalMovement = movementSpeed;
+        originalMovement = MovementSpeed;
         healthBarScript.UpdateHealthBar(); // run once so that healthbar is properly intialized
     }
     public abstract MonsterType GetMonsterType();
     public void Damage(float amount)
     {  
-        health -= amount;
+        Health -= amount;
         healthBarScript.UpdateHealthBar();
-        if (health <= 0 && !isDead)
+        if (Health <= 0 && !isDead)
         {
             Die();
         }
@@ -65,21 +68,21 @@ public abstract class Monster : MonoBehaviour
     public void Slow(float pct)
     {
         isSlowed = true;
-        movementSpeed = movementSpeed - pct;
+        MovementSpeed = MovementSpeed - pct;
     }
     IEnumerator Slowtimer()
     {
         yield return new WaitForSeconds(slowDuration);
-        movementSpeed = originalMovement;
+        MovementSpeed = originalMovement;
         isSlowed=false;
     }
     public void Die()
     {
         isDead = true;
-        PlayerInfo.Instance.AddPlayerMoney(worth); //update players money value
+        PlayerInfo.Instance.AddPlayerMoney(moneyValue); //update players money value
         //vfx for dying
         GameObject effect = (GameObject)Instantiate(deathEffect, new Vector3(transform.position.x,transform.position.y + 1,transform.position.z), Quaternion.identity);
-        effect.GetComponent<SetMoneyDropText>().setMoneyTextValue(worth);
+        effect.GetComponent<SetMoneyDropText>().setMoneyTextValue(moneyValue);
         Destroy(effect, 1f);
         //update enemies alive on wavemanagement system
         WaveSpawner.EnemiesAlive--;
@@ -91,7 +94,7 @@ public abstract class Monster : MonoBehaviour
         BaseEnterEvent baseEnterEvent = (BaseEnterEvent)eventArgs;
         if (baseEnterEvent != null && collider != null)
         {
-            if (baseEnterEvent.boxCollider == collider)
+            if (baseEnterEvent.BoxCollider == collider)
             {
                 Die();
             }

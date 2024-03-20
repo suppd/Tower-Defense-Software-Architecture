@@ -8,11 +8,9 @@ public class BaseTriggerScript : MonoBehaviour
     /// <summary>
     /// this script sends event data to all eventbus subscribers once an enemy enters the player's base
     /// </summary>
-
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("enemy entered the base!");
-        GlobalBus.globalEventBus.Publish(this, new BaseEnterEvent(other)); //the enemy has entered the base (send event!!!) 
+        GlobalBus.GlobalEventBus.Publish(this, new BaseEnterEvent(other)); //the enemy has entered the base (send event!!!) 
     }
-  
 }

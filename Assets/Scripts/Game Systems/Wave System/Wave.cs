@@ -10,7 +10,7 @@ public class Wave : MonoBehaviour
 	/// </summary>
 	public List<Monster> monsters = new List<Monster>();
 	[Header("Enemies per wave per monster in the list")]
-	public int count;
+	public int Count;
 	[Header("Rate Per Second, So 5 = 5 second")]
-	public float rate;
+	public float Rate;
 }

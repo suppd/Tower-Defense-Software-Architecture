@@ -9,19 +9,15 @@ public class PlayerInfo : Singleton<PlayerInfo>
 	/// <summary>
 	/// this class is responsible of keeping track of all player related things like money health and rounds passed and also updating them and displaying them correctly!
 	/// </summary>
-
-
+	public static int Rounds;
+	public static int UpgradeCost = 5;
+	public static int BuildCost = 10;
 	private int money;
 	[SerializeField]
 	private int startMoney = 100;
-	private  int lives;
+	private int lives;
 	[SerializeField]
 	private int startLives = 20;
-
-	public static int rounds;
-	public static int upgradeCost = 5;
-	public static int buildCost = 10;
-
 	[SerializeField]
 	private Canvas playerUI;
 	[SerializeField]
@@ -33,11 +29,9 @@ public class PlayerInfo : Singleton<PlayerInfo>
 	{
 		money = startMoney;
 		lives = startLives;
-
 		moneyText.text = money.ToString();
 		healthText.text = lives.ToString();
-
-		rounds = 0;
+		Rounds = 0;
 	}
     private void FixedUpdate()
     {
@@ -45,21 +39,10 @@ public class PlayerInfo : Singleton<PlayerInfo>
 		healthText.text = lives.ToString();
 	}
 
-	public void SpendMoneyOnUpgrade()
+	public void SpendMoney(int amountToSpend)
     {
-		if (money >= upgradeCost)
-		{
-			money = money - upgradeCost;
-		}
+		money = money - amountToSpend;
     }
-
-	public void SpendMoneyOnBuild()
-	{
-		if (money >= buildCost)
-		{
-			money = money - buildCost;
-		}
-	}
 	public int GetPlayerLivesAmount()
     {
 		return lives;

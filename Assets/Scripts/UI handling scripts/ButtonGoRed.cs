@@ -15,7 +15,7 @@ public class ButtonGoRed : MonoBehaviour
     {
         for (int i = 0; i < prefabs.Count; i++)
         {
-            if (PlayerInfo.Instance.GetPlayerMoneyAmount() < prefabs[i].GetComponent<TowerInfo>().towerPrice)
+            if (PlayerInfo.Instance.GetPlayerMoneyAmount() < prefabs[i].GetComponent<TowerBase>().TowerPrice)
             {
                 buttons[i].image.color = Color.red;
             }

@@ -22,11 +22,11 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	[SerializeField]
     private void OnEnable() // subscribe to eventbus
     {
-        GlobalBus.globalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.GlobalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     private void OnDisable() //unsubscribe to eventbus
     {
-        GlobalBus.globalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
+        GlobalBus.GlobalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
     void Awake()
 	{

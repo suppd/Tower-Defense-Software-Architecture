@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2e665c96179b44eb1849f720eee88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardTurretPrefab: {fileID: 3691523531608101196, guid: 34ad3814fe104f44dae6bd55df002fbe, type: 3}
-  aoeTurretPrefab: {fileID: 3691523531608101196, guid: 8f5a16ed94d11cb469031e04aa181d8e, type: 3}
-  debuffTurretPrefab: {fileID: 3691523531608101196, guid: 64406c4026dd229448a78f4d58f51944, type: 3}
+  StandardTurretPrefab: {fileID: 3691523531608101196, guid: 34ad3814fe104f44dae6bd55df002fbe, type: 3}
+  AoeTurretPrefab: {fileID: 3691523531608101196, guid: 8f5a16ed94d11cb469031e04aa181d8e, type: 3}
+  DebuffTurretPrefab: {fileID: 3691523531608101196, guid: 64406c4026dd229448a78f4d58f51944, type: 3}

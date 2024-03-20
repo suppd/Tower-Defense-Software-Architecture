@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WayPoints : MonoBehaviour
 {
-    public List<GameObject> waypoints = new List<GameObject>();     
+    public List<GameObject> Waypoints = new List<GameObject>();     
         void Awake()
         {
             foreach (Transform t in transform)
             {
-                waypoints.Add(t.gameObject);
+                Waypoints.Add(t.gameObject);
             }
         }
 }

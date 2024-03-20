@@ -10,7 +10,7 @@ public class DebuffTower : TowerBase
     protected override void UpgradeSpecifics()
     {
         Debug.Log("Old Debuff Tower Duration is : " + this.SlowDuration);
-        this.SlowDuration += SlowDuration;
+        this.SlowDuration += slowIncrease;
         Debug.Log("Old Debuff Tower Duration is : " + this.SlowDuration);
     }
 }

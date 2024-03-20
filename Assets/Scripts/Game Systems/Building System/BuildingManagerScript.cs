@@ -11,12 +11,12 @@ public class BuildingManagerScript : Singleton<BuildingManagerScript> //inherit 
     /// changes the turret to build variable that the building node class can use
     /// </summary>
 
-    public GameObject standardTurretPrefab;
-    public GameObject aoeTurretPrefab;
-    public GameObject debuffTurretPrefab;
+    public GameObject StandardTurretPrefab;
+    public GameObject AoeTurretPrefab;
+    public GameObject DebuffTurretPrefab;
     private void Start()
     {
-        turretToBuild = standardTurretPrefab;
+        turretToBuild = StandardTurretPrefab;
     }
     private GameObject turretToBuild;
     public GameObject GetTurretToBuild()
@@ -25,18 +25,18 @@ public class BuildingManagerScript : Singleton<BuildingManagerScript> //inherit 
     }
     public void setTurretToStandard()
     {
-        PlayerInfo.buildCost = standardTurretPrefab.GetComponent<TowerInfo>().towerPrice;
-        turretToBuild = standardTurretPrefab;
+        PlayerInfo.BuildCost = StandardTurretPrefab.GetComponent<TowerInfo>().towerPrice;
+        turretToBuild = StandardTurretPrefab;
     }
     public void setTurretToAOE()
     {
 
-        PlayerInfo.buildCost = aoeTurretPrefab.GetComponent<TowerInfo>().towerPrice;
-        turretToBuild = aoeTurretPrefab;
+        PlayerInfo.BuildCost = AoeTurretPrefab.GetComponent<TowerInfo>().towerPrice;
+        turretToBuild = AoeTurretPrefab;
     }
     public void setTurretToDebuff()
     {
-        PlayerInfo.buildCost = debuffTurretPrefab.GetComponent<TowerInfo>().towerPrice;
-        turretToBuild = debuffTurretPrefab;
+        PlayerInfo.BuildCost = DebuffTurretPrefab.GetComponent<TowerInfo>().towerPrice;
+        turretToBuild = DebuffTurretPrefab;
     }
 }

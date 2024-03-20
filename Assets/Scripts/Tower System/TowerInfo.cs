@@ -42,7 +42,7 @@ public class TowerInfo : MonoBehaviour
     {
         if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= towerUpgradePrice) // change this to 
         {
-            PlayerInfo.Instance.SpendMoneyOnUpgrade();
+            //PlayerInfo.Instance.SpendMoneyOnUpgrade();
             this.towerLevel += allTowerLevelGain;
             this.towerDamage += normalTowerDamageGain;
             this.towerFireRate += allTowerFireRateGain;
@@ -54,7 +54,7 @@ public class TowerInfo : MonoBehaviour
     {
         if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= towerUpgradePrice)
         {
-            PlayerInfo.Instance.SpendMoneyOnUpgrade();
+            //PlayerInfo.Instance.SpendMoneyOnUpgrade();
             this.towerLevel += allTowerLevelGain;
             previousTowerExplosionRadius = towerExplosionRadius;
             this.towerExplosionRadius = previousTowerExplosionRadius + AOETowerRadiusGain;
@@ -67,7 +67,7 @@ public class TowerInfo : MonoBehaviour
     {
         if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= towerUpgradePrice)
         {
-            PlayerInfo.Instance.SpendMoneyOnUpgrade();
+            //PlayerInfo.Instance.SpendMoneyOnUpgrade();
             this.towerLevel += allTowerLevelGain;
             this.towerSlowDuration += DebuffTowerSlowDurationGain;
             this.towerFireRate += allTowerFireRateGain;
@@ -86,10 +86,10 @@ public class TowerInfo : MonoBehaviour
     // Updating the new values the tower gets when theyre upgraded so that theyre used in the actual shooting script
     private void updateTowerShootingScriptValuesAndLevel()
     {
-        towerShootingScipt.bulletDamage = towerDamage;
-        towerShootingScipt.fireRate = towerFireRate;
-        towerShootingScipt.slowDuration = towerSlowDuration;
-        towerShootingScipt.explosionRadius = towerExplosionRadius;
+        towerShootingScipt.BulletDamage = towerDamage;
+        towerShootingScipt.FireRate = towerFireRate;
+        towerShootingScipt.SlowDuration = towerSlowDuration;
+        towerShootingScipt.ExplosionRadius = towerExplosionRadius;
 
         levelDisplay.text = towerLevel.ToString();
     }

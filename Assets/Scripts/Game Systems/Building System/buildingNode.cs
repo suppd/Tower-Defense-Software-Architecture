@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class buildingNode : MonoBehaviour
+public class BuildingNode : MonoBehaviour
 {
     /// <summary>
     /// handles the actual "building" of towers on their designated nodes
@@ -10,10 +10,10 @@ public class buildingNode : MonoBehaviour
     /// and places it if the player has enough money
     /// </summary>
     /// 
-    public Color hoverColor;
-    public bool canBuild;
+    [SerializeField]
+    private Color hoverColor;
+    private bool canBuild;
     private GameObject turret;
-
     private MeshRenderer rend;
     private Color startColor;
 
@@ -32,9 +32,9 @@ public class buildingNode : MonoBehaviour
                 Debug.Log("cant build turret ");
                 return;
             }
-            if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= PlayerInfo.buildCost)
+            if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= PlayerInfo.BuildCost)
             {
-                PlayerInfo.Instance.SpendMoneyOnBuild();
+                PlayerInfo.Instance.SpendMoney(PlayerInfo.BuildCost);
                 GameObject turretToBuild = BuildingManagerScript.Instance.GetTurretToBuild();
                 turret = (GameObject)Instantiate(turretToBuild, transform.position, transform.rotation);
             }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class GlobalBus
 {
-   public static readonly EventBus globalEventBus = new EventBus();
+   public static readonly EventBus GlobalEventBus = new EventBus();
 }

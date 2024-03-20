@@ -28,11 +28,15 @@ public abstract class TowerBase : MonoBehaviour
     [SerializeField]
     private int towerUpgradePrice = 5;
     //Even if not all towers do damage atleast have the value in the base class so that if you later on want for example the debuff tower to also deal small amount of damage or DOT (damage over time)
-    [Header("Tower Mechanics Values")]
-    private int towerDamage = 8;
-    private int towerFireRate = 1;
-    private int towerSlowDuration = 3;
-    private float towerExplosionRadius = 1.5f; // make sure to set to 0 if 
+    [Header("Tower Base Values")]
+    [SerializeField]
+    private int towerDamage = 0;
+    [SerializeField]
+    private int towerFireRate = 0;
+    [SerializeField]
+    private int towerSlowDuration = 0;
+    [SerializeField]
+    private float towerExplosionRadius = 0; // make sure to set to 0 if 
     //The values that are upgraded by the upgrade system make them private and accesible in editor so upgrades can be adjusted for each tower type
     [Header("Tower Upgrade Gain Values")]
     [SerializeField]
@@ -40,6 +44,32 @@ public abstract class TowerBase : MonoBehaviour
     [SerializeField]
     private int towerFireRateGain = 1;
     private float previousTowerExplosionRadius;
+    public int Damage
+    {
+        get { return towerDamage; }
+        protected set { towerDamage = value; }
+    }
+    public float ExplosionRadius
+    {
+        get { return towerExplosionRadius; }
+        protected set { towerExplosionRadius = value; }
+    }
+    public int SlowDuration
+    {
+        get { return towerSlowDuration; }
+        protected set { towerSlowDuration = value; }
+    }
+    //for if i want to update the upgrade price or normal buy price throughout the game at some point
+    public int TowerPrice
+    {
+        get { return towerPrice; }
+        protected set { towerPrice = value; }
+    }
+    public int TowerUpgradePrice
+    {
+        get { return towerUpgradePrice; }
+        protected set { towerUpgradePrice = value; }
+    }
     private void Start()
     {
         SetLocalShootingScriptAndSubsribe();
@@ -50,7 +80,7 @@ public abstract class TowerBase : MonoBehaviour
     public void UpgradeTower() //every tower should have fire rate increase and level increase  and such  then implent their own upgrade value or other functionality
     {
         //common upgrade functionality
-        PlayerInfo.Instance.SpendMoneyOnUpgrade();
+        PlayerInfo.Instance.SpendMoney(TowerUpgradePrice);
         towerFireRate += towerFireRateGain;
         towerLevel += towerLevelGain;
         //specific upgrade functionality
@@ -68,10 +98,10 @@ public abstract class TowerBase : MonoBehaviour
     }
     public virtual void UpdateShootingScriptValues() // give shooting script the values so that it can pass it to the 
     {
-        towerShootScript.bulletDamage = towerDamage;
-        towerShootScript.fireRate = towerFireRate;
-        towerShootScript.slowDuration = towerSlowDuration;
-        towerShootScript.explosionRadius = towerExplosionRadius;
+        towerShootScript.BulletDamage = towerDamage;
+        towerShootScript.FireRate = towerFireRate;
+        towerShootScript.SlowDuration = towerSlowDuration;
+        towerShootScript.ExplosionRadius = towerExplosionRadius;
         levelDisplay.text = towerLevel.ToString();
     }
     public void Subscribe(ITowerObserver observer)
@@ -103,32 +133,7 @@ public abstract class TowerBase : MonoBehaviour
             }
         }
     }
-    public int Damage
-    {
-        get { return towerDamage; }
-        protected set { towerDamage = value; }
-    }
-    public float ExplosionRadius
-    {
-        get { return towerExplosionRadius; }
-        protected set { towerExplosionRadius = value; }
-    }
-    public int SlowDuration
-    {
-        get { return towerSlowDuration; }
-        protected set { towerSlowDuration = value; }
-    }
-    //for if i want to update the upgrade price or normal buy price throughout the game at some point
-    public int Price
-    {
-        get { return towerPrice; }
-        protected set { towerPrice = value; }
-    }
-    public int TowerUpgradePrice
-    {
-        get { return towerUpgradePrice; }
-        protected set { towerUpgradePrice = value; }
-    }
+   
     public virtual void destoryTower() // for the destroy button
     {
         this.Unsubscribe(towerShootScript);//unsubscribe when destroying

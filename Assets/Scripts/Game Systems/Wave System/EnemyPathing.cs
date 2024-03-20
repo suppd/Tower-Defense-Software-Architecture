@@ -5,22 +5,22 @@ using UnityEngine;
 public class EnemyPathing : MonoBehaviour
 {
     //this class is responsible for letting the enemies follow the given waypoints so the level designer can create a set path
-    public WayPoints wayPoints;
-    public float speed;
+    public WayPoints WayPoints;
+    private float speed;
     private void Awake()
     {
         //set the speed of the monster with the given individual speed 
-        speed = GetComponent<Monster>().movementSpeed;
+        speed = GetComponent<Monster>().MovementSpeed;
     }
     void Start()
     {
         // get the path to follow and then set it to the parent (enemy)
-        if (wayPoints != null)
+        if (WayPoints != null)
         {
-            Vector3[] waypoints = new Vector3[wayPoints.waypoints.Count];
+            Vector3[] waypoints = new Vector3[WayPoints.Waypoints.Count];
             for (int i = 0; i < waypoints.Length; i++)
             {
-                waypoints[i] = wayPoints.waypoints[i].gameObject.transform.position;
+                waypoints[i] = WayPoints.Waypoints[i].gameObject.transform.position;
                 //waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
             }
             StartCoroutine(FollowPath(waypoints));
@@ -32,7 +32,7 @@ public class EnemyPathing : MonoBehaviour
     }
     void Update()
     {
-        speed = GetComponent<Monster>().movementSpeed;
+        speed = GetComponent<Monster>().MovementSpeed;
     }
     IEnumerator FollowPath(Vector3[] waypoints)
     {

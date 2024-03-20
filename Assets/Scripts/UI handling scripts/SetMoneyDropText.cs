@@ -8,8 +8,8 @@ using TMPro;
 /// </summary>
 public class SetMoneyDropText : MonoBehaviour
 {
-    public TextMeshProUGUI moneyText;
-
+    [SerializeField]
+    private TextMeshProUGUI moneyText;
     public void setMoneyTextValue(int value)
     {
         moneyText.text = "+ "+value.ToString();

@@ -8,21 +8,25 @@ using UnityEngine.UI;
 /// </summary>
 public class HealthBar : MonoBehaviour
 {
-    public Slider healthBar;
-    public Image fill;
-    public Gradient gradient;
-    public Monster monster;
+    [SerializeField]
+    private Slider healthBar;
+    [SerializeField]
+    private Image fill;
+    [SerializeField]
+    private Gradient gradient;
+    [SerializeField]
+    private Monster monster;
 
     private float health;
     private void Awake()
     {
-        health = monster.health;
+        health = monster.Health;
         healthBar.maxValue = health;
         fill.color = gradient.Evaluate(1f);
     }
     public void UpdateHealthBar()
     {
-        health = monster.health;
+        health = monster.Health;
         healthBar.value = health;
         fill.color = gradient.Evaluate(healthBar.normalizedValue);
     }
