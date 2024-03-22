@@ -13,7 +13,10 @@ public class UpgradeButton : MonoBehaviour
     private TowerBase towerScript;
     [SerializeField]
     private TextMeshProUGUI buttonText;
-
+    public void SetButtonText()
+    {
+        buttonText.text = "upgrade -" + towerScript.TowerUpgradePrice;
+    }
     private void Start()
     {
         SetButtonText();
@@ -45,8 +48,4 @@ public class UpgradeButton : MonoBehaviour
         }
     }
 
-    public void SetButtonText()
-    {
-        buttonText.text = "upgrade -" + towerScript.TowerUpgradePrice;
-    }
 }

@@ -18,16 +18,16 @@ public class HealthBar : MonoBehaviour
     private Monster monster;
 
     private float health;
-    private void Awake()
-    {
-        health = monster.Health;
-        healthBar.maxValue = health;
-        fill.color = gradient.Evaluate(1f);
-    }
     public void UpdateHealthBar()
     {
         health = monster.Health;
         healthBar.value = health;
         fill.color = gradient.Evaluate(healthBar.normalizedValue);
+    }
+    private void Awake()
+    {
+        health = monster.Health;
+        healthBar.maxValue = health;
+        fill.color = gradient.Evaluate(1f);
     }
 }

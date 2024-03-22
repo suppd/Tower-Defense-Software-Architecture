@@ -70,13 +70,6 @@ public abstract class TowerBase : MonoBehaviour
         get { return towerUpgradePrice; }
         protected set { towerUpgradePrice = value; }
     }
-    private void Start()
-    {
-        SetLocalShootingScriptAndSubsribe();
-        UpdateShootingScriptValues();
-        levelDisplay.text = towerLevel.ToString();
-    }
-    //we attach upgrade tower to upgrade button on tower prefab
     public void UpgradeTower() //every tower should have fire rate increase and level increase  and such  then implent their own upgrade value or other functionality
     {
         //common upgrade functionality
@@ -87,7 +80,6 @@ public abstract class TowerBase : MonoBehaviour
         UpgradeSpecifics();
         UpdateShootingScriptValues();
     }
-    protected abstract void UpgradeSpecifics(); // now implement in subclass and give subclass specifc functionality
     public virtual void SetLocalShootingScriptAndSubsribe()
     {
         towerShootScript = gameObject.GetComponentInChildren<TowerShooting>();
@@ -112,6 +104,14 @@ public abstract class TowerBase : MonoBehaviour
     {
         observers.Remove(observer);
     }
+    private void Start()
+    {
+        SetLocalShootingScriptAndSubsribe();
+        UpdateShootingScriptValues();
+        levelDisplay.text = towerLevel.ToString();
+    }
+    //we attach upgrade tower to upgrade button on tower prefab
+    protected abstract void UpgradeSpecifics(); // now implement in subclass and give subclass specifc functionality
     protected void NotifyObservers()
     {
         foreach (var observer in observers)
@@ -133,7 +133,6 @@ public abstract class TowerBase : MonoBehaviour
             }
         }
     }
-   
     public virtual void destoryTower() // for the destroy button
     {
         this.Unsubscribe(towerShootScript);//unsubscribe when destroying

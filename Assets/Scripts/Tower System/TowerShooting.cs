@@ -26,6 +26,18 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
     public int BulletDamage;
     public float SlowDuration;
     public float ExplosionRadius;
+    public void NotifyNormalTowerUpgrade(int newLevel, float newFireRate, int newDamage)
+    {
+        BulletDamage = newDamage;
+    }
+    public void NotifyAOETowerUpgrade(int newLevel, float newFireRate, float newRadius)
+    {
+        ExplosionRadius = newRadius;
+    }
+    public void NotifyDebuffTowerUpgrade(int newLevel, float newFireRate, float newDebuffDuration)
+    {
+        SlowDuration = newDebuffDuration;
+    }
     private void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.1f);
@@ -44,7 +56,7 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
         }
         fireCountdown -= Time.deltaTime;
     }
-    void UpdateTarget()
+    private void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
         float shortestDistance = Mathf.Infinity;
@@ -68,7 +80,7 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
             target = null;
         }
     }
-    void Shoot()
+    private void Shoot()
     {
         GameObject cannonBallPrefab = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         CannonBall cannonBall = cannonBallPrefab.GetComponent<CannonBall>();
@@ -80,18 +92,6 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
             cannonBall.CheckCannonBallType();
             cannonBall.FireAtTarget(target);
         }
-    }
-    public void NotifyNormalTowerUpgrade(int newLevel, float newFireRate, int newDamage)
-    {
-        BulletDamage = newDamage;
-    }
-    public void NotifyAOETowerUpgrade(int newLevel, float newFireRate, float newRadius)
-    {
-        ExplosionRadius = newRadius;
-    }
-    public void NotifyDebuffTowerUpgrade(int newLevel, float newFireRate, float newDebuffDuration)
-    {
-        SlowDuration = newDebuffDuration;
     }
     private void OnDrawGizmosSelected()
     {

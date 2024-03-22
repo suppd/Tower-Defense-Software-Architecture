@@ -27,32 +27,16 @@ public abstract class Monster : MonoBehaviour
     private Collider collider;
     private bool isDead = false;
     private float originalMovement;
-    private void OnEnable() // subscribe to eventbus
-    {
-        GlobalBus.GlobalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
-    }
-    private void OnDestroy() //unsubscribe to eventbus
-    {
-        Debug.Log("unsubscribing from eventbus because im being destroyed :(");
-        GlobalBus.GlobalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
-    }
-    private void Awake() // pass in the path to follow
-    {  
-        pathingScript = GetComponent<EnemyPathing>();
-    }
+    public abstract MonsterType GetMonsterType();
+
     public enum MonsterType //could define more types here in the future like goblin mage etc
     {
         Skeleton,
         ArmoredSkeleton
     }
-    private void Start()
-    {
-        originalMovement = MovementSpeed;
-        healthBarScript.UpdateHealthBar(); // run once so that healthbar is properly intialized
-    }
-    public abstract MonsterType GetMonsterType();
+
     public void Damage(float amount)
-    {  
+    {
         Health -= amount;
         healthBarScript.UpdateHealthBar();
         if (Health <= 0 && !isDead)
@@ -70,13 +54,31 @@ public abstract class Monster : MonoBehaviour
         isSlowed = true;
         MovementSpeed = MovementSpeed - pct;
     }
+    private void OnEnable() // subscribe to eventbus
+    {
+        GlobalBus.GlobalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
+    }
+    private void OnDestroy() //unsubscribe to eventbus
+    {
+        Debug.Log("unsubscribing from eventbus because im being destroyed :(");
+        GlobalBus.GlobalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
+    }
+    private void Awake() // pass in the path to follow
+    {  
+        pathingScript = GetComponent<EnemyPathing>();
+    }
+    private void Start()
+    {
+        originalMovement = MovementSpeed;
+        healthBarScript.UpdateHealthBar(); // run once so that healthbar is properly intialized
+    }
     IEnumerator Slowtimer()
     {
         yield return new WaitForSeconds(slowDuration);
         MovementSpeed = originalMovement;
         isSlowed=false;
     }
-    public void Die()
+    private void Die()
     {
         isDead = true;
         PlayerInfo.Instance.AddPlayerMoney(moneyValue); //update players money value

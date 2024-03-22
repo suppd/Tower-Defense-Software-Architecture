@@ -25,7 +25,27 @@ public class PlayerInfo : Singleton<PlayerInfo>
 	[SerializeField]
 	private TextMeshProUGUI healthText;
 
-    void Awake()
+	public int GetPlayerLivesAmount()
+	{
+		return lives;
+	}
+	public int GetPlayerMoneyAmount()
+	{
+		return money;
+	}
+	public void AddPlayerMoney(int amountToAdd)
+	{
+		money += amountToAdd;
+	}
+	public void SubstractPlayerLives(int amountToSubstact)
+	{
+		lives -= amountToSubstact;
+	}
+	public void SpendMoney(int amountToSubstact)
+	{
+		money -= amountToSubstact;
+	}
+	void Awake()
 	{
 		money = startMoney;
 		lives = startLives;
@@ -38,25 +58,4 @@ public class PlayerInfo : Singleton<PlayerInfo>
 		moneyText.text = money.ToString();
 		healthText.text = lives.ToString();
 	}
-
-	public void SpendMoney(int amountToSpend)
-    {
-		money = money - amountToSpend;
-    }
-	public int GetPlayerLivesAmount()
-    {
-		return lives;
-    }
-	public int GetPlayerMoneyAmount()
-	{
-		return money;
-	}
-	public void AddPlayerMoney(int amountToAdd)
-    {
-		money += amountToAdd;
-    }
-	public void SubstractPlayerLives(int amountToSubstact)
-    {
-		lives -= amountToSubstact;
-    }
 }

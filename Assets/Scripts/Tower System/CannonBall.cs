@@ -17,13 +17,13 @@ public class CannonBall : MonoBehaviour
     //three methods for updating the values 
     //Not the greatest approach if I wanted to make the project more scalabe I would make a "projectile" super class or something and then let this class inherit from there 
     //by doing that I can make an enum list of bullet types and then based on bullet type I can change the corresponding value i want to change using only one method
+    private Type cannonBallType;
     enum Type
     {
         NORMAL,
         AOE,
         DEBUFF
     }
-    private Type cannonBallType;
     public void CheckCannonBallType()
     {
         if (ExplosionRadius > 0f)

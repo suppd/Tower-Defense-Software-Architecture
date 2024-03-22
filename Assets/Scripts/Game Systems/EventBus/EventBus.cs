@@ -8,7 +8,6 @@ using UnityEngine.Events;
 public class EventBus 
 {
     public Dictionary<Type, List<EventHandler>> SubscriberByType;
-
     public EventBus()
     {
         SubscriberByType = new Dictionary<Type, List<EventHandler>>(); //initialize the dictionary so we dont get an error

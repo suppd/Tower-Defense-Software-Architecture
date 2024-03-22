@@ -20,7 +20,36 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	private GameObject gameplayUI;
     private float fixedDeltaTime;
 	[SerializeField]
-    private void OnEnable() // subscribe to eventbus
+	public void WinLevel()
+	{
+		GameIsOver = true;
+		completeLevelUI.SetActive(true);
+		gameplayUI.SetActive(false);
+	}
+	public void ReloadScene()
+	{
+		string currentSceneName = SceneManager.GetActiveScene().name;
+		SceneManager.LoadScene(currentSceneName);
+	}
+	//cheats for ingame
+	public void AddMoney()
+	{
+		PlayerInfo.Instance.AddPlayerMoney(1000);
+	}
+	public void AddTime(float timeToAdd)
+	{
+		Time.timeScale += timeToAdd;
+		//Debug.Log(Time.timeScale);
+	}
+	public void SubstractTime(float timeToSubstract)
+	{
+		if (Time.timeScale > 0.01f)
+		{
+			//Debug.Log(Time.timeScale);
+			Time.timeScale -= timeToSubstract;
+		}
+	}
+	private void OnEnable() // subscribe to eventbus
     {
         GlobalBus.GlobalEventBus.Subscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
@@ -42,41 +71,12 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 			WaveSpawner.Instance.enabled = false;
 		}
 	}
-	//cheats for ingame
-	public void AddMoney()
-	{
-		PlayerInfo.Instance.AddPlayerMoney(1000);
-	}
-    public void AddTime(float timeToAdd)
-	{
-		Time.timeScale += timeToAdd;
-		//Debug.Log(Time.timeScale);
-	}
-    public void SubstractTime(float timeToSubstract)
-    {
-		if (Time.timeScale > 0.01f)
-		{
-            //Debug.Log(Time.timeScale);
-            Time.timeScale -= timeToSubstract;
-		}
-    }
     private void LoseLevel()
 	{
 		GameIsOver = true;
 		gameOverUI.SetActive(true);
 		gameplayUI.SetActive(false);
 	}
-	public void WinLevel()
-	{
-		GameIsOver = true;
-		completeLevelUI.SetActive(true);
-        gameplayUI.SetActive(false);
-    }
-	public void ReloadScene()
-	{
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
-    }
     private void HandleEnemyEnter(object sender, EventArgs eventArgs)
     {
 		PlayerInfo.Instance.SubstractPlayerLives(1);
