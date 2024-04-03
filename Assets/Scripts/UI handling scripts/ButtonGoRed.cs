@@ -5,23 +5,26 @@ using UnityEngine.UI;
 
 public class ButtonGoRed : MonoBehaviour
 {
-    //script for makign build buttons color red if you dont have enough money for the corresponding tower build!
+    //OBSOLETE! -> HandleBuildingUI.cs
+    //script for making build buttons color red if you dont have enough money for the corresponding tower build!
     [SerializeField]
     private List<Button> buttons;
     [SerializeField]
-    private List<GameObject> prefabs;
-
+    private List<TowerScriptableObject> towerDatas;
+    //NOTE : these 2 lists need to be same order for this script to function properly index 0 for example button is normal tower button and towerdata is normal tower data!
     public void Update()
     {
-        for (int i = 0; i < prefabs.Count; i++)
+        for (int i = 0; i < towerDatas.Count; i++)
         {
-            if (PlayerInfo.Instance.GetPlayerMoneyAmount() < prefabs[i].GetComponent<TowerBase>().TowerPrice)
+            if (PlayerInfo.Instance.GetPlayerMoneyAmount() < towerDatas[i].TowerPrice)
             {
                 buttons[i].image.color = Color.red;
+                buttons[i].interactable = false;
             }
             else
             {
                 buttons[i].image.color = Color.white;
+                buttons[i].interactable = true;
             }
         }
     }

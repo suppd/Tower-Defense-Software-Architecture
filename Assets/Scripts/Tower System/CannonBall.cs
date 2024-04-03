@@ -99,7 +99,7 @@ public class CannonBall : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosionRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.tag == "enemy")
+            if (collider.CompareTag("enemy"))
             {
                 DamageEnemy(collider.transform);
             }
@@ -110,7 +110,7 @@ public class CannonBall : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosionRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.tag == "enemy")
+            if (collider.CompareTag("enemy"))
             {
                 Slow(collider.transform);
             }
@@ -132,7 +132,6 @@ public class CannonBall : MonoBehaviour
             if (!e.isSlowed)
             {
                 e.slowDuration = SlowDuration;
-                Debug.Log("montser slowed!");
                 e.GetSlowed(SlowAmount);
             }
         }

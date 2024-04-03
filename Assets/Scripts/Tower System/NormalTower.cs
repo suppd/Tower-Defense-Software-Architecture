@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class NormalTower : TowerBase
 {
-    //Normal Tower Specific variables like damage increase
-    [SerializeField]
-    private int damageIncrease = 1;
+    //Normal Tower Specific functions here
     protected override void UpgradeSpecifics()
     {
-        Debug.Log("Old Normal Tower Damage is : " + this.Damage);
-        this.Damage += damageIncrease;
-        Debug.Log("New Normal Tower Damage is : " + this.Damage);
+        Damage += DamageIncrease;
     }
 }
 

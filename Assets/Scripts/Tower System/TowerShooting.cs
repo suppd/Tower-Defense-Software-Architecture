@@ -8,8 +8,6 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
     //NOTE : this script is attached to the actual cannon in the tower prefab not on the tower itself
     [Header("Turret Refrences")]
     [SerializeField]
-    private TowerInfo towerInfo;
-    [SerializeField]
     private GameObject bulletPrefab; // cannonball prefab (any of the 3 diffrent ones can be put in)
     [SerializeField]
     private Transform bulletSpawn;
@@ -26,15 +24,15 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
     public int BulletDamage;
     public float SlowDuration;
     public float ExplosionRadius;
-    public void NotifyNormalTowerUpgrade(int newLevel, float newFireRate, int newDamage)
+    public void NotifyNormalTowerUpgrade(float newLevel, float newFireRate, int newDamage)
     {
         BulletDamage = newDamage;
     }
-    public void NotifyAOETowerUpgrade(int newLevel, float newFireRate, float newRadius)
+    public void NotifyAoeTowerUpgrade(float newLevel, float newFireRate, float newRadius)
     {
         ExplosionRadius = newRadius;
     }
-    public void NotifyDebuffTowerUpgrade(int newLevel, float newFireRate, float newDebuffDuration)
+    public void NotifyDebuffTowerUpgrade(float newLevel, float newFireRate, float newDebuffDuration)
     {
         SlowDuration = newDebuffDuration;
     }

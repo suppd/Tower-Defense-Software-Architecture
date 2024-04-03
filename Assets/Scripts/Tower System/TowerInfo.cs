@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TowerInfo : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class TowerInfo : MonoBehaviour
     public int allTowerLevelGain = 1;
     public int allTowerFireRateGain = 1;
     //
-    public int normalTowerDamageGain = 1;
+    public int NormalTowerDamageGain = 1;
     public float AOETowerRadiusGain = 0.5f;
     public int DebuffTowerSlowDurationGain = 1;
     //
@@ -44,7 +45,7 @@ public class TowerInfo : MonoBehaviour
         {
             //PlayerInfo.Instance.SpendMoneyOnUpgrade();
             this.towerLevel += allTowerLevelGain;
-            this.towerDamage += normalTowerDamageGain;
+            this.towerDamage += NormalTowerDamageGain;
             this.towerFireRate += allTowerFireRateGain;
             Debug.Log("this tower has been upgraded to have " + towerDamage + "amounts of damage per shot!");
             updateTowerShootingScriptValuesAndLevel();

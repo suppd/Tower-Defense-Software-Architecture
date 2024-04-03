@@ -253,9 +253,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1546819337398475654}
-        m_TargetAssemblyTypeName: TowerInfo, Assembly-CSharp
-        m_MethodName: destoryTower
+      - m_Target: {fileID: 1451072598183713762}
+        m_TargetAssemblyTypeName: TowerBase, Assembly-CSharp
+        m_MethodName: DestoryTower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -411,7 +411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f7b0c77623a1d4999644836ce80fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerInfo: {fileID: 1546819337398475654}
   bulletPrefab: {fileID: 2040253750945521751, guid: 8b8a5560f8f31ee49930901d8e0b7e7a, type: 3}
   bulletSpawn: {fileID: 4610424630949621215}
   range: 2.46
@@ -521,19 +520,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04e380bdf30ff84f8959c01a73c47b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerDataScript: {fileID: 11400000, guid: 7baf7e1a6fe76fe4bbb1c97fc0529c72, type: 2}
   towerShootScript: {fileID: 4610424629805480087}
   towerPrefab: {fileID: 3691523531608101196}
   levelDisplay: {fileID: 4322506507935010376}
-  towerLevel: 1
-  towerPrice: 20
-  towerUpgradePrice: 10
-  towerDamage: 5
-  towerFireRate: 1
-  towerSlowDuration: 0
-  towerExplosionRadius: 1.5
-  towerLevelGain: 1
-  towerFireRateGain: 1
-  radiusIncrease: 1
+  render: {fileID: 2898648447933526169}
+  gradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.42677772, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0.53754234, a: 1}
+    key2: {r: 0.2383068, g: 0.16470587, b: 1, a: 0}
+    key3: {r: 0, g: 0.965132, b: 1, a: 0}
+    key4: {r: 0, g: 1, b: 0.2608924, a: 0}
+    key5: {r: 1, g: 0.08235294, b: 0, a: 0}
+    key6: {r: 0.96911365, g: 1, b: 0.7122642, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 6554
+    ctime1: 13107
+    ctime2: 19661
+    ctime3: 26214
+    ctime4: 32768
+    ctime5: 39321
+    ctime6: 45875
+    ctime7: 52428
+    atime0: 0
+    atime1: 64764
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
 --- !u!114 &6368106963448256325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,7 +592,7 @@ MonoBehaviour:
   towerExplosionRadius: 1.5
   allTowerLevelGain: 1
   allTowerFireRateGain: 1
-  normalTowerDamageGain: 1
+  NormalTowerDamageGain: 1
   AOETowerRadiusGain: 0.5
   DebuffTowerSlowDurationGain: 1
 --- !u!1 &4610424630949621214

@@ -3,47 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public interface ITowerObserver //interface for in the towershooting script to "observe" tower changes per tower type
-{
-    void NotifyNormalTowerUpgrade(int newLevel, float newFireRate, int newDamage);
-    void NotifyAOETowerUpgrade(int newLevel, float newFireRate, float newRadius);
-    void NotifyDebuffTowerUpgrade(int newLevel, float newFireRate, float newDebuffDuration);
-}
 
 public abstract class TowerBase : MonoBehaviour
 {
     private List<ITowerObserver> observers = new List<ITowerObserver>();
+
     [Header("Tower Refrences that need refrencing in the prefab")]
+    [SerializeField]
+    private TowerScriptableObject towerDataScript;
     [SerializeField]
     private TowerShooting towerShootScript;
     [SerializeField]
     private GameObject towerPrefab;
     [SerializeField]
     private TextMeshProUGUI levelDisplay;
-    [Header("Tower Building System Related Valuse")]
-    [SerializeField]
+    [Header("Tower Building System Related Values")]
     private int towerLevel = 1;
-    [SerializeField]
     private int towerPrice = 10;
-    [SerializeField]
     private int towerUpgradePrice = 5;
     //Even if not all towers do damage atleast have the value in the base class so that if you later on want for example the debuff tower to also deal small amount of damage or DOT (damage over time)
     [Header("Tower Base Values")]
-    [SerializeField]
     private int towerDamage = 0;
-    [SerializeField]
     private int towerFireRate = 0;
-    [SerializeField]
     private int towerSlowDuration = 0;
-    [SerializeField]
-    private float towerExplosionRadius = 0; // make sure to set to 0 if 
+    private float towerExplosionRadius = 0; 
     //The values that are upgraded by the upgrade system make them private and accesible in editor so upgrades can be adjusted for each tower type
     [Header("Tower Upgrade Gain Values")]
-    [SerializeField]
     private int towerLevelGain = 1;
-    [SerializeField]
     private int towerFireRateGain = 1;
-    private float previousTowerExplosionRadius;
+    [Header("Specific Upgrade Values")]
+    private int towerDamageIncrease = 0;
+    private float towerRadiusIncrease = 0f;
+    private int towerSlowIncrease = 0;
+    [Header("Tower Upgrade Color System")]
+    [SerializeField]
+    private MeshRenderer render;
+    [SerializeField]
+    private Gradient gradient;
     public int Damage
     {
         get { return towerDamage; }
@@ -59,7 +55,21 @@ public abstract class TowerBase : MonoBehaviour
         get { return towerSlowDuration; }
         protected set { towerSlowDuration = value; }
     }
-    //for if i want to update the upgrade price or normal buy price throughout the game at some point
+    public int DamageIncrease
+    {
+        get { return towerDamageIncrease; }
+        protected set { towerDamageIncrease = value; }
+    }
+    public float ExplosionRadiusIncrease
+    {
+        get { return towerRadiusIncrease; }
+        protected set { towerRadiusIncrease = value; }
+    }
+    public int SlowDurationIncrease
+    {
+        get { return towerSlowIncrease; }
+        protected set { towerSlowIncrease = value; }
+    }
     public int TowerPrice
     {
         get { return towerPrice; }
@@ -73,16 +83,14 @@ public abstract class TowerBase : MonoBehaviour
     public void UpgradeTower() //every tower should have fire rate increase and level increase  and such  then implent their own upgrade value or other functionality
     {
         //common upgrade functionality
-        PlayerInfo.Instance.SpendMoney(TowerUpgradePrice);
-        towerFireRate += towerFireRateGain;
-        towerLevel += towerLevelGain;
+        UpgradeCommonTower();
         //specific upgrade functionality
         UpgradeSpecifics();
         UpdateShootingScriptValues();
+        NotifyObservers();
     }
-    public virtual void SetLocalShootingScriptAndSubsribe()
+    public virtual void SetLocalShootingScriptAndSubscribe()
     {
-        towerShootScript = gameObject.GetComponentInChildren<TowerShooting>();
         if (towerShootScript != null)
         {
             this.Subscribe(towerShootScript);
@@ -104,38 +112,68 @@ public abstract class TowerBase : MonoBehaviour
     {
         observers.Remove(observer);
     }
+    public virtual void DestoryTower() // for the destroy button
+    {
+        this.Unsubscribe(towerShootScript);//unsubscribe when destroying
+        Destroy(towerPrefab);
+    }
+    private void UpgradeCommonTower()
+    {
+        PlayerInfo.Instance.SpendMoney(TowerUpgradePrice);
+        towerFireRate += towerFireRateGain;
+        towerLevel += towerLevelGain;
+        UpgradeTowerColorBasedOnGradient();
+    }
+    private void UpgradeTowerColorBasedOnGradient()
+    {
+        float normalizedLevel = (float)(this.towerLevel - 1) / 10f; // Normalize tower level to range [0, 1]
+        render.material.color = gradient.Evaluate(normalizedLevel);
+    }
+    private void SetTowerData(TowerScriptableObject towerScriptableObject)
+    {
+        //Building System values
+        towerLevel = towerScriptableObject.TowerLevel;
+        towerPrice = towerScriptableObject.TowerPrice;
+        towerUpgradePrice = towerScriptableObject.TowerUpgradePrice;
+        //Base Tower Values
+        Damage = towerScriptableObject.TowerDamage;
+        towerFireRate = towerScriptableObject.TowerFireRate;
+        towerSlowDuration = towerScriptableObject.TowerSlowDuration;
+        towerExplosionRadius = towerScriptableObject.TowerExplosionRadius;
+        //Tower Upgrade gain Values
+        towerLevelGain = towerScriptableObject.TowerLevelGain;
+        towerFireRateGain = towerScriptableObject.TowerFireRateGain;
+        towerDamageIncrease = towerScriptableObject.TowerDamageIncrease;
+        towerRadiusIncrease = towerScriptableObject.TowerRadiusIncrease;
+        towerSlowIncrease = towerScriptableObject.TowerSlowIncrease;
+    }
     private void Start()
     {
-        SetLocalShootingScriptAndSubsribe();
+        SetTowerData(towerDataScript);
+        SetLocalShootingScriptAndSubscribe();
         UpdateShootingScriptValues();
         levelDisplay.text = towerLevel.ToString();
     }
-    //we attach upgrade tower to upgrade button on tower prefab
     protected abstract void UpgradeSpecifics(); // now implement in subclass and give subclass specifc functionality
     protected void NotifyObservers()
     {
         foreach (var observer in observers)
         {
-            if (this is NormalTower)
+            switch (this)
             {
-                Debug.Log("notifying of normal tower upgrade with new damage value of : " + towerDamage);
-                observer.NotifyNormalTowerUpgrade(towerLevel, towerFireRate, towerDamage);
-            }
-            else if (this is AOETower)
-            {
-                Debug.Log("notifying of AOE tower upgrade with new damage value of : " + towerDamage);
-                observer.NotifyAOETowerUpgrade(towerLevel, towerFireRate, towerExplosionRadius);
-            }
-            else if (this is DebuffTower)
-            {
-                Debug.Log("notifying of normal tower upgrade with new damage value of : " + towerDamage);
-                observer.NotifyDebuffTowerUpgrade(towerLevel, towerFireRate, towerSlowDuration);
+                case NormalTower _:
+                    Debug.Log("notifying of normal tower upgrade with new Damage value of : "  + towerDamage);
+                    observer.NotifyNormalTowerUpgrade(towerLevel, towerFireRate, towerDamage);
+                    break;
+                case AOETower _:
+                    Debug.Log("notifying of normal tower upgrade with new ExplosionRadius value of : "  + towerExplosionRadius);
+                    observer.NotifyAoeTowerUpgrade(towerLevel, towerFireRate, towerExplosionRadius);
+                    break;
+                case DebuffTower _:
+                    Debug.Log("notifying of normal tower upgrade with new SlowDuration value of : "  + towerSlowDuration);
+                    observer.NotifyDebuffTowerUpgrade(towerLevel, towerFireRate, towerSlowDuration);
+                    break;
             }
         }
-    }
-    public virtual void destoryTower() // for the destroy button
-    {
-        this.Unsubscribe(towerShootScript);//unsubscribe when destroying
-        Destroy(towerPrefab);
     }
 }
