@@ -6,9 +6,9 @@ using TMPro;
 
 public abstract class TowerBase : MonoBehaviour
 {
-    private List<ITowerObserver> observers = new List<ITowerObserver>();
+    private readonly List<ITowerObserver> observers = new List<ITowerObserver>();
 
-    [Header("Tower Refrences that need refrencing in the prefab")]
+    [Header("Tower References that need referencing in the prefab")]
     [SerializeField]
     private TowerScriptableObject towerDataScript;
     [SerializeField]
@@ -55,6 +55,12 @@ public abstract class TowerBase : MonoBehaviour
         get { return towerSlowDuration; }
         protected set { towerSlowDuration = value; }
     }
+    /// <summary>
+    /// These 3 Variables were originally local variables that were serialized in the editor in each individual prefab (in scripts that inherit TowerBase)
+    /// but since i reworked the tower data to be in a scriptable object it made more sense for me to have it all in one place
+    /// because if i kept these prefab dependant it would almost defeat the purpose of scriptable objects as data containers (for this project specifically, small scale)
+    /// so i made them public variables which all of the towers have now but not necessarily use
+    /// </summary>
     public int DamageIncrease
     {
         get { return towerDamageIncrease; }
@@ -70,6 +76,7 @@ public abstract class TowerBase : MonoBehaviour
         get { return towerSlowIncrease; }
         protected set { towerSlowIncrease = value; }
     }
+    ///
     public int TowerPrice
     {
         get { return towerPrice; }
@@ -89,7 +96,8 @@ public abstract class TowerBase : MonoBehaviour
         UpdateShootingScriptValues();
         NotifyObservers();
     }
-    public virtual void SetLocalShootingScriptAndSubscribe()
+
+    protected virtual void SetLocalShootingScriptAndSubscribe()
     {
         if (towerShootScript != null)
         {
@@ -104,11 +112,11 @@ public abstract class TowerBase : MonoBehaviour
         towerShootScript.ExplosionRadius = towerExplosionRadius;
         levelDisplay.text = towerLevel.ToString();
     }
-    public void Subscribe(ITowerObserver observer)
+    private void Subscribe(ITowerObserver observer)
     {
         observers.Add(observer);
     }
-    public void Unsubscribe(ITowerObserver observer)
+    private void Unsubscribe(ITowerObserver observer)
     {
         observers.Remove(observer);
     }
@@ -155,7 +163,7 @@ public abstract class TowerBase : MonoBehaviour
         levelDisplay.text = towerLevel.ToString();
     }
     protected abstract void UpgradeSpecifics(); // now implement in subclass and give subclass specifc functionality
-    protected void NotifyObservers()
+    private void NotifyObservers() //way of letting the actual turret that shoots the bullet prefabs know that a value has changed for the bullet 
     {
         foreach (var observer in observers)
         {

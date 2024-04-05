@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HandleBuildingUI : MonoBehaviour
 {
-    //this script makes build buttons red if player has insuffiecient money, sets the prices displayed on the buttons and sets the tower info panels text
+    //this script makes build buttons red if player has insufficient money, sets the prices displayed on the buttons and sets the tower info panels text
     [SerializeField]
     private List<Button> buttons;
     [SerializeField] 
