@@ -1,14 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 using TMPro;
-
+/// <summary>
+/// wave spawner class is responsible for knowing when to start a new wave when a wave is still in progress when the game is over (by winning) 
+/// and for of course keeping track of the number of the wave its on and then spawning the enemies based on a wave assigned in inspector 
+/// </summary>
 public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class to make wavespaner a singelton class (so theres only one in the game!)
 {
-	/// <summary>
-	/// wave spawner class is responsible for knowing when to start a new wave when a wave is still in progress when the game is over (by winning) 
-	/// and for of course keeping track of the number of the wave its on and then spawning the enemies based on a wave assigned in inspector 
-	/// </summary>
 	public static int EnemiesAlive = 0;
 	//arrray of Waves to spawn which can be dragged in through the inspector 
 	[Header("Here we configure Waves in the inspector just drag the wave.cs script and then drag the enemy prefabs you want!")]
@@ -70,18 +68,24 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 			switch (CheckWaveState())
 			{
 				case WaveState.Start:
-					MutualWaveState();
+					WaveTime();
+					//handle UI when wave starts
+					setUI(false);
+					//also set the skip to false so that it resets
+					skipTime = false;
+					//update the amount of rounds in the playerinfo instance
+					PlayerInfo.Rounds++;
 					StartCoroutine(SpawnWave());
 					initalCountdown = timeBetweenWaves;
 					break;
 				case WaveState.Ongoing:
 					WaveOver = false;
-					MutualWaveState();
+					CheckEnemiesAlive();
 					//
 					break;
 				case WaveState.Over:
 					WaveOver = true;
-					MutualWaveState();
+					WaveTime();
 					setUI(true);
 					break;
 				case WaveState.GameOver:
@@ -95,9 +99,12 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 		}
 	}
 
-	void MutualWaveState()
-    {
+	private void CheckEnemiesAlive()
+	{
 		EnemiesAlive = GameObject.FindGameObjectsWithTag("enemy").Length;
+	}
+	private void WaveTime()
+    {
 		initalCountdown -= Time.deltaTime;
 		initalCountdown = Mathf.Clamp(initalCountdown, 0f, Mathf.Infinity);
 		waveCountdownText.text = string.Format("{0:00.00}", initalCountdown);
@@ -129,12 +136,6 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 
 	IEnumerator SpawnWave()
 	{
-		//handle UI when wave starts
-		setUI(false);
-		//also set the skip to false so that it resets
-		skipTime = false;
-		//update the amount of rounds in the playerinfo instance
-		PlayerInfo.Rounds++;
 		//get the wavescript that matches the current wave's index (so waveindex = 1 it gets the second wavescript in the array)
 		Wave wave = Waves[waveIndex];
 		EnemiesAlive = wave.Count;

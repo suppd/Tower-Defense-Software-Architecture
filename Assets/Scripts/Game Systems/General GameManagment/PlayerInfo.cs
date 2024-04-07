@@ -44,7 +44,7 @@ public class PlayerInfo : Singleton<PlayerInfo>
 	{
 		money -= amountToSubstact;
 	}
-	void Awake()
+	private new void Awake()
 	{
 		money = startMoney;
 		lives = startLives;

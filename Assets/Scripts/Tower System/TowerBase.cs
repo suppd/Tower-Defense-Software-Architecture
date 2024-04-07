@@ -5,12 +5,10 @@ using TMPro;
 /// <summary>
 /// This Class  is the Superclass for all towers it handles upgrading all the commmon features and has a overridable method SpecificUpgrade for each tower type to override on its own
 /// it loads all the assigned variables from the TowerScriptableObjectScript and notifies (using ITowerObserver) the TowerShootingScript when values are upgraded so it can adjust its values
-/// 
 /// </summary>
 public abstract class TowerBase : MonoBehaviour
 {
     private readonly List<ITowerObserver> observers = new List<ITowerObserver>();
-
     [Header("Tower References that need referencing in the prefab")]
     [SerializeField]
     private TowerScriptableObject towerDataScript;

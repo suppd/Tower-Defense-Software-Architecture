@@ -36,7 +36,7 @@ public class BuildingManagerScript : Singleton<BuildingManagerScript> //inherit 
         //Make sure that when changing the tower we're building the player info manager also knows the latest build cost
         PlayerInfo.BuildCost = TowerDatas[index].TowerPrice;
     }
-    private void Awake()
+    private new void Awake()
     {
         float screenWidth = Screen.width;
         numberOfButtons = buildableTowers.Count;

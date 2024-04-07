@@ -57,13 +57,13 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
     {
         GlobalBus.GlobalEventBus.UnSubscribe<BaseEnterEvent>(HandleEnemyEnter);
     }
-    void Awake()
+    private new void Awake()
 	{
         this.fixedDeltaTime = Time.fixedDeltaTime;
         GameIsOver = false;
 	}
 
-	void Update()
+	private void Update()
 	{
 		if (PlayerInfo.Instance.GetPlayerLivesAmount() <= 0)
 		{
