@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 /// <summary>
 /// This Script is creatable in the unity editor and then configurable to configure each tower prefab to use these configured settings simply drag this onto the desired tower prefab

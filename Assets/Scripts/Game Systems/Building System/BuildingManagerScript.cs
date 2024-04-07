@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// Building Manager script
+/// has diffrent prefabs that the player can place (right now its 3 diffrent ones)
+/// gives information to playerinfo class for the cost of each build
+/// changes the turret to build variable that the building node class can use
+/// </summary>
+//Public Lists that the HandleBuildingUI script uses to update the values of spawned UI elements
 public class BuildingManagerScript : Singleton<BuildingManagerScript> //inherit from singelton class
 {
-    /// <summary>
-    /// Building Manager script
-    /// has diffrent prefabs that the player can place (right now its 3 diffrent ones)
-    /// gives information to playerinfo class for the cost of each build
-    /// changes the turret to build variable that the building node class can use
-    /// </summary>
-    //Public Lists that the HandleBuildingUI script uses to update the values of spawned UI elements
     public List<Button> InstaniatedButtons;
     public List<TowerScriptableObject> TowerDatas;
     public List<GameObject> InfoPanels;

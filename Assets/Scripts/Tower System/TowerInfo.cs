@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-
+/// <summary>
+/// OUTDATED!!!!!!!!!!!!!!!!!!!!!!!!!! (check TowerBase.cs)
+/// </summary>
+// this class is responsible for managing each towers own values and information like damage firerate and such
 public class TowerInfo : MonoBehaviour
 {
     /// <summary>

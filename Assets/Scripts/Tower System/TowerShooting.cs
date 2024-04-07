@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+using UnityEngine;
+/// <summary>
+/// this script is just responsible for making it so that every tower prefab can shoot and hit an enemy it also implements the TowerObserver Interface so that it can "observe" its upgrade
+/// this script is attached to the actual cannon in the tower prefab not on the tower itself
+/// </summary>
 public class TowerShooting : MonoBehaviour, ITowerObserver
 {
-    /// <summary>
-    /// this script is just responsible for making it so that every tower prefab can shoot and hit an enemy it also implements the TowerObserver Interface so that it can "observe" its upgrade
-    /// this script is attached to the actual cannon in the tower prefab not on the tower itself
-    /// </summary>
     [Header("Turret Refrences")]
     [SerializeField]
     private GameObject bulletPrefab; // cannonball prefab (any of the 3 diffrent ones can be put in)

@@ -3,12 +3,11 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 using System;
-
+/// <summary>
+/// this class is responsible of keeping track of all player related things like money health and rounds passed and also updating them and displaying them correctly!
+/// </summary>
 public class PlayerInfo : Singleton<PlayerInfo>
 {
-	/// <summary>
-	/// this class is responsible of keeping track of all player related things like money health and rounds passed and also updating them and displaying them correctly!
-	/// </summary>
 	public static int Rounds;
 	public static int BuildCost = 10; //default
 	private int money;

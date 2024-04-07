@@ -1,7 +1,7 @@
 using UnityEngine;
-
-
-
+/// <summary>
+/// SuperClass to implement singleton pattern into classes that need it
+/// </summary>
     public class Singleton<T> : MonoBehaviour where T : Component
     {
         // Singleton instance.

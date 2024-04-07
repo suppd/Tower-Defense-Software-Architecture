@@ -2,15 +2,14 @@ using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// the global gamemanager 
+/// mainly just handles the game state ( win - lose - playing states)
+/// also handles player money and lives
+/// </summary>
+//variables
 public class GameManager : Singleton<GameManager> //inherit from singelton class
 {
-	/// <summary>
-	/// the global gamemanager 
-	/// mainly just handles the game state ( win - lose - playing states)
-	/// also handles player money and lives
-	/// </summary>
-	//variables
 	public static bool GameIsOver = false;
 	[SerializeField]
 	private GameObject gameOverUI;

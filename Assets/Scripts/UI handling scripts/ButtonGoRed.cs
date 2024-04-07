@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
+using UnityEngine;
+/// <summary>
+///     OBSOLETE! -> HandleBuildingUI.cs
+/// </summary>
 public class ButtonGoRed : MonoBehaviour
 {
-    //OBSOLETE! -> HandleBuildingUI.cs
+
     
 //     //script for making build buttons color red if you dont have enough money for the corresponding tower build!
 //     [SerializeField]

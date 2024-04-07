@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 /// <summary>
-/// Setting money text value for the UI
+/// Setting money text value for money drop effect
 /// </summary>
 public class SetMoneyDropText : MonoBehaviour
 {

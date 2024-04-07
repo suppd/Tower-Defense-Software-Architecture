@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+/// <summary>
+/// Simple script that handles showing the towerinfo panels on build buttons
+/// </summary>
 public class OnTowerButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]

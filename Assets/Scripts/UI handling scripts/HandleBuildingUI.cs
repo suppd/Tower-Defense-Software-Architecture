@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-
+/// <summary>
+/// this script makes build buttons red if player has insufficient money, sets the prices displayed on the buttons and sets the tower info panels text
+/// it takes the lists from building manager script to do this at first I had preassigned lists in the editor/scene but to dynamically spawn UI its not possible to pre assign so I do it like this
+/// </summary>
 public class HandleBuildingUI : MonoBehaviour
 {
-    /// <summary>
-    /// this script makes build buttons red if player has insufficient money, sets the prices displayed on the buttons and sets the tower info panels text
-    /// it takes the lists from building manager script to do this at first I had preassigned lists in the editor/scene but to dynamically spawn UI its not possible to pre assign so I do it like this
-    /// </summary>
     [SerializeField]
     private List<Button> buttons;
     [SerializeField] 

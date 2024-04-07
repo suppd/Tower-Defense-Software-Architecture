@@ -1,12 +1,11 @@
 
 using UnityEngine;
-
-public class CannonBall : MonoBehaviour
-{
 /// <summary>
 ///this script is responsible for all three types of bullets (standard,aoe dmg,debuff) it shoots the one based on which type
 /// currently it just checks which upgrade value is > 0 and then marks it as the corresponding type its not the best way of doing it i know but i honestly didnt know how else to handle it 
 /// </summary>
+public class CannonBall : MonoBehaviour
+{
     public float Speed = 5f;
     public int Damage = 1;
     public int SlowAmount = 2;

@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+/// <summary>
+///  //this script's only purpose is enabling / disabling the upgrade button and changes color based on if player has enough money for upgrade
+/// </summary>
 public class UpgradeButton : MonoBehaviour
 {
-    //this script's only purpose is enabling / disabling the upgrade button that is attached to the tower model (when the wave is active or not)\
     [SerializeField]
     private GameObject towerUpgradeButton;
     [SerializeField]

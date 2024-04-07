@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// this class is responsible for letting the enemies follow the given waypoints so the level designer can create a set path
+/// </summary>
 public class EnemyPathing : MonoBehaviour
 {
-    //this class is responsible for letting the enemies follow the given waypoints so the level designer can create a set path
     public WayPoints WayPoints;
     private float speed;
     private void Awake()
