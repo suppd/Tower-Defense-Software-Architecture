@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Monster : MonoBehaviour
 {
     /// <summary>
-    /// this is the abstract class for all monsters so all enemies are based off this class
+    /// this is the abstract class for all Monsters so all enemies are based off this class
     /// meaning they all have a movementspeed variable health varialbe a money worth variable and some other variables
     /// also jsut handles general stuff enemies need to have like take damage method get slowed method and die methods etc
     /// </summary>
@@ -14,9 +14,9 @@ public abstract class Monster : MonoBehaviour
     //all public vars that need to be accessed by other classes
     public float MovementSpeed = 0f;
     public float Health;
-    public bool isSlowed = false;
-    public float slowDuration = 3f;
-    public EnemyPathing pathingScript; //public so it can be accessed in the wavespawner class
+    public bool IsSlowed = false;
+    public float SlowDuration = 3f;
+    public EnemyPathing PathingScript; //public so it can be accessed in the wavespawner class
     [SerializeField]
     private HealthBar healthBarScript;
     [SerializeField]
@@ -24,7 +24,7 @@ public abstract class Monster : MonoBehaviour
     [SerializeField]
     private GameObject deathEffect;
     [SerializeField]
-    private Collider collider;
+    private new Collider collider;
     private bool isDead = false;
     private float originalMovement;
     public abstract MonsterType GetMonsterType();
@@ -51,7 +51,7 @@ public abstract class Monster : MonoBehaviour
     }
     public void Slow(float pct)
     {
-        isSlowed = true;
+        IsSlowed = true;
         MovementSpeed = MovementSpeed - pct;
     }
     private void OnEnable() // subscribe to eventbus
@@ -65,7 +65,7 @@ public abstract class Monster : MonoBehaviour
     }
     private void Awake() // pass in the path to follow
     {  
-        pathingScript = GetComponent<EnemyPathing>();
+        PathingScript = GetComponent<EnemyPathing>();
     }
     private void Start()
     {
@@ -74,9 +74,9 @@ public abstract class Monster : MonoBehaviour
     }
     IEnumerator Slowtimer()
     {
-        yield return new WaitForSeconds(slowDuration);
+        yield return new WaitForSeconds(SlowDuration);
         MovementSpeed = originalMovement;
-        isSlowed=false;
+        IsSlowed=false;
     }
     private void Die()
     {
@@ -84,7 +84,7 @@ public abstract class Monster : MonoBehaviour
         PlayerInfo.Instance.AddPlayerMoney(moneyValue); //update players money value
         //vfx for dying
         GameObject effect = (GameObject)Instantiate(deathEffect, new Vector3(transform.position.x,transform.position.y + 1,transform.position.z), Quaternion.identity);
-        effect.GetComponent<SetMoneyDropText>().setMoneyTextValue(moneyValue);
+        effect.GetComponent<SetMoneyDropText>().SetMoneyTextValue(moneyValue);
         Destroy(effect, 1f);
         //update enemies alive on wavemanagement system
         WaveSpawner.EnemiesAlive--;

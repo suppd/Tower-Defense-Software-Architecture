@@ -10,7 +10,7 @@ public class SetMoneyDropText : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI moneyText;
-    public void setMoneyTextValue(int value)
+    public void SetMoneyTextValue(int value)
     {
         moneyText.text = "+ "+value.ToString();
     }

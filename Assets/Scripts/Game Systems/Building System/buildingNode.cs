@@ -12,7 +12,6 @@ public class BuildingNode : MonoBehaviour
     /// 
     [SerializeField]
     private Color hoverColor;
-    private bool canBuild;
     private TowerBase turret;
     private MeshRenderer rend;
     private Color startColor;
@@ -25,7 +24,7 @@ public class BuildingNode : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (WaveSpawner.Instance.waveOver)
+        if (WaveSpawner.Instance.WaveOver)
         {
             if (turret != null)
             {
@@ -34,9 +33,9 @@ public class BuildingNode : MonoBehaviour
             }
             if (PlayerInfo.Instance.GetPlayerMoneyAmount() >= PlayerInfo.BuildCost)
             {
-                PlayerInfo.Instance.SpendMoney(PlayerInfo.BuildCost);
                 TowerBase turretToBuild = BuildingManagerScript.Instance.GetTurretToBuild();
                 turret = (TowerBase)Instantiate(turretToBuild, transform.position, transform.rotation);
+                PlayerInfo.Instance.SpendMoney(PlayerInfo.BuildCost);
             }
         }
     }

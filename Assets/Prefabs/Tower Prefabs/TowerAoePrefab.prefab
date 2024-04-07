@@ -432,7 +432,6 @@ GameObject:
   - component: {fileID: 2898648447933526169}
   - component: {fileID: 1451072598183713762}
   - component: {fileID: 6368106963448256325}
-  - component: {fileID: 1546819337398475654}
   m_Layer: 0
   m_Name: TowerAoePrefab
   m_TagString: Untagged
@@ -569,32 +568,6 @@ MonoBehaviour:
   towerUpgradeButton: {fileID: 4409277561010788109}
   towerScript: {fileID: 1451072598183713762}
   buttonText: {fileID: 6994175957933772023}
---- !u!114 &1546819337398475654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3691523531608101196}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b86ec3fa0ccb9274e9743e8e7cf9a154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerShootingScipt: {fileID: 4610424629805480087}
-  tower: {fileID: 3691523531608101196}
-  levelDisplay: {fileID: 4322506507935010376}
-  towerPrice: 20
-  towerUpgradePrice: 5
-  towerDamage: 5
-  towerFireRate: 1
-  towerSlowDuration: 0
-  towerExplosionRadius: 1.5
-  allTowerLevelGain: 1
-  allTowerFireRateGain: 1
-  NormalTowerDamageGain: 1
-  AOETowerRadiusGain: 0.5
-  DebuffTowerSlowDurationGain: 1
 --- !u!1 &4610424630949621214
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,13 +927,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
---- !u!4 &4067099812935578912 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
-  m_PrefabInstance: {fileID: 4610424630533444299}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3691523531291848602 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
+  m_PrefabInstance: {fileID: 4610424630533444299}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4067099812935578912 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
   m_PrefabInstance: {fileID: 4610424630533444299}
   m_PrefabAsset: {fileID: 0}

@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
-
+/// <summary>
+/// This Class  is the Superclass for all towers it handles upgrading all the commmon features and has a overridable method SpecificUpgrade for each tower type to override on its own
+/// it loads all the assigned variables from the TowerScriptableObjectScript and notifies (using ITowerObserver) the TowerShootingScript when values are upgraded so it can adjust its values
+/// 
+/// </summary>
 public abstract class TowerBase : MonoBehaviour
 {
     private readonly List<ITowerObserver> observers = new List<ITowerObserver>();
@@ -42,18 +45,18 @@ public abstract class TowerBase : MonoBehaviour
     private Gradient gradient;
     public int Damage
     {
-        get { return towerDamage; }
-        protected set { towerDamage = value; }
+        get => towerDamage;
+        protected set => towerDamage = value;
     }
     public float ExplosionRadius
     {
-        get { return towerExplosionRadius; }
-        protected set { towerExplosionRadius = value; }
+        get => towerExplosionRadius;
+        protected set => towerExplosionRadius = value;
     }
     public int SlowDuration
     {
-        get { return towerSlowDuration; }
-        protected set { towerSlowDuration = value; }
+        get => towerSlowDuration;
+        protected set => towerSlowDuration = value;
     }
     /// <summary>
     /// These 3 Variables were originally local variables that were serialized in the editor in each individual prefab (in scripts that inherit TowerBase)
@@ -63,29 +66,34 @@ public abstract class TowerBase : MonoBehaviour
     /// </summary>
     public int DamageIncrease
     {
-        get { return towerDamageIncrease; }
-        protected set { towerDamageIncrease = value; }
+        get => towerDamageIncrease;
+        protected set => towerDamageIncrease = value;
     }
     public float ExplosionRadiusIncrease
     {
-        get { return towerRadiusIncrease; }
-        protected set { towerRadiusIncrease = value; }
+        get => towerRadiusIncrease;
+        protected set => towerRadiusIncrease = value;
     }
     public int SlowDurationIncrease
     {
-        get { return towerSlowIncrease; }
-        protected set { towerSlowIncrease = value; }
+        get => towerSlowIncrease;
+        protected set => towerSlowIncrease = value;
     }
     ///
     public int TowerPrice
     {
-        get { return towerPrice; }
-        protected set { towerPrice = value; }
+        get => towerPrice;
+        protected set => towerPrice = value;
     }
     public int TowerUpgradePrice
     {
-        get { return towerUpgradePrice; }
-        protected set { towerUpgradePrice = value; }
+        get => towerUpgradePrice;
+        protected set => towerUpgradePrice = value;
+    }
+    public TowerScriptableObject TowerDataScript
+    {
+        get => towerDataScript;
+        protected set => towerDataScript = value;
     }
     public void UpgradeTower() //every tower should have fire rate increase and level increase  and such  then implent their own upgrade value or other functionality
     {
@@ -93,7 +101,6 @@ public abstract class TowerBase : MonoBehaviour
         UpgradeCommonTower();
         //specific upgrade functionality
         UpgradeSpecifics();
-        UpdateShootingScriptValues();
         NotifyObservers();
     }
 
@@ -103,14 +110,6 @@ public abstract class TowerBase : MonoBehaviour
         {
             this.Subscribe(towerShootScript);
         }
-    }
-    public virtual void UpdateShootingScriptValues() // give shooting script the values so that it can pass it to the 
-    {
-        towerShootScript.BulletDamage = towerDamage;
-        towerShootScript.FireRate = towerFireRate;
-        towerShootScript.SlowDuration = towerSlowDuration;
-        towerShootScript.ExplosionRadius = towerExplosionRadius;
-        levelDisplay.text = towerLevel.ToString();
     }
     private void Subscribe(ITowerObserver observer)
     {
@@ -131,13 +130,14 @@ public abstract class TowerBase : MonoBehaviour
         towerFireRate += towerFireRateGain;
         towerLevel += towerLevelGain;
         UpgradeTowerColorBasedOnGradient();
+        levelDisplay.text = towerLevel.ToString();
     }
     private void UpgradeTowerColorBasedOnGradient()
     {
         float normalizedLevel = (float)(this.towerLevel - 1) / 10f; // Normalize tower level to range [0, 1]
         render.material.color = gradient.Evaluate(normalizedLevel);
     }
-    private void SetTowerData(TowerScriptableObject towerScriptableObject)
+    private void LoadTowerData(TowerScriptableObject towerScriptableObject)
     {
         //Building System values
         towerLevel = towerScriptableObject.TowerLevel;
@@ -157,9 +157,9 @@ public abstract class TowerBase : MonoBehaviour
     }
     private void Start()
     {
-        SetTowerData(towerDataScript);
+        LoadTowerData(towerDataScript);
         SetLocalShootingScriptAndSubscribe();
-        UpdateShootingScriptValues();
+        NotifyObservers(); //Call it once so that the initial values can be set
         levelDisplay.text = towerLevel.ToString();
     }
     protected abstract void UpgradeSpecifics(); // now implement in subclass and give subclass specifc functionality
@@ -171,15 +171,15 @@ public abstract class TowerBase : MonoBehaviour
             {
                 case NormalTower _:
                     Debug.Log("notifying of normal tower upgrade with new Damage value of : "  + towerDamage);
-                    observer.NotifyNormalTowerUpgrade(towerLevel, towerFireRate, towerDamage);
+                    observer.NotifyNormalTowerUpgrade(towerFireRate, towerDamage);
                     break;
                 case AOETower _:
                     Debug.Log("notifying of normal tower upgrade with new ExplosionRadius value of : "  + towerExplosionRadius);
-                    observer.NotifyAoeTowerUpgrade(towerLevel, towerFireRate, towerExplosionRadius);
+                    observer.NotifyAoeTowerUpgrade( towerFireRate, towerExplosionRadius);
                     break;
                 case DebuffTower _:
                     Debug.Log("notifying of normal tower upgrade with new SlowDuration value of : "  + towerSlowDuration);
-                    observer.NotifyDebuffTowerUpgrade(towerLevel, towerFireRate, towerSlowDuration);
+                    observer.NotifyDebuffTowerUpgrade(towerFireRate, towerSlowDuration);
                     break;
             }
         }

@@ -26,7 +26,7 @@ public class UpgradeButton : MonoBehaviour
         //enable upgrade button based on wheter its building phase or not
         if (GameManager.Instance != null)
         {
-            if (WaveSpawner.Instance.waveOver)
+            if (WaveSpawner.Instance.WaveOver)
             {
                 towerUpgradeButton.gameObject.SetActive(true);
             }
@@ -41,7 +41,7 @@ public class UpgradeButton : MonoBehaviour
             towerUpgradeButton.GetComponent<Image>().color = Color.red;
             towerUpgradeButton.SetActive(false);
         }
-        else if (WaveSpawner.Instance.waveOver)
+        else if (WaveSpawner.Instance.WaveOver)
         {
             towerUpgradeButton.SetActive(true);
             towerUpgradeButton.GetComponent<Image>().color = Color.green;

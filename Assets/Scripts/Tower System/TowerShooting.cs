@@ -24,17 +24,20 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
     public int BulletDamage;
     public float SlowDuration;
     public float ExplosionRadius;
-    public void NotifyNormalTowerUpgrade(float newLevel, float newFireRate, int newDamage)
+    public void NotifyNormalTowerUpgrade( int newFireRate, int newDamage)
     {
         BulletDamage = newDamage;
+        FireRate = newFireRate;
     }
-    public void NotifyAoeTowerUpgrade(float newLevel, float newFireRate, float newRadius)
+    public void NotifyAoeTowerUpgrade( int newFireRate, float newRadius)
     {
         ExplosionRadius = newRadius;
+        FireRate = newFireRate;
     }
-    public void NotifyDebuffTowerUpgrade(float newLevel, float newFireRate, float newDebuffDuration)
+    public void NotifyDebuffTowerUpgrade(int newFireRate, float newDebuffDuration)
     {
         SlowDuration = newDebuffDuration;
+        FireRate = newFireRate;
     }
     private void Start()
     {
@@ -84,9 +87,9 @@ public class TowerShooting : MonoBehaviour, ITowerObserver
         CannonBall cannonBall = cannonBallPrefab.GetComponent<CannonBall>();
         if (cannonBall != null)
         { // here it gives the bullet that it spawns the damage values that the tower has (because the bullet is actually what damages the enemy)
-            cannonBall.setBulletDamage(BulletDamage);
-            cannonBall.setBulletSlowDuration(SlowDuration);
-            cannonBall.setBulletExplosionRadius(ExplosionRadius);
+            cannonBall.SetBulletDamage(BulletDamage);
+            cannonBall.SetBulletSlowDuration(SlowDuration);
+            cannonBall.SetBulletExplosionRadius(ExplosionRadius);
             cannonBall.CheckCannonBallType();
             cannonBall.FireAtTarget(target);
         }

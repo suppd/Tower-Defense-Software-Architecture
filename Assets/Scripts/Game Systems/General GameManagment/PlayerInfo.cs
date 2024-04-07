@@ -10,8 +10,7 @@ public class PlayerInfo : Singleton<PlayerInfo>
 	/// this class is responsible of keeping track of all player related things like money health and rounds passed and also updating them and displaying them correctly!
 	/// </summary>
 	public static int Rounds;
-	public static int UpgradeCost = 5;
-	public static int BuildCost = 10;
+	public static int BuildCost = 10; //default
 	private int money;
 	[SerializeField]
 	private int startMoney = 100;

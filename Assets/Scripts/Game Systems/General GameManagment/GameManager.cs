@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager> //inherit from singelton class
 	/// also handles player money and lives
 	/// </summary>
 	//variables
-	public static bool GameIsOver;
+	public static bool GameIsOver = false;
 	[SerializeField]
 	private GameObject gameOverUI;
 	[SerializeField]

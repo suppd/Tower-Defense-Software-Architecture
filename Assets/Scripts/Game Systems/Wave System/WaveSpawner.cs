@@ -5,19 +5,21 @@ using TMPro;
 
 public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class to make wavespaner a singelton class (so theres only one in the game!)
 {
-	// wavespawner class is responsible for knowing when to start a new wave when a wave is still in progress when the game is over (by winning) 
-	// and for of course keeping track of the number of the wave its on and then spawning the enemies based on a script inputed in the inspector
+	/// <summary>
+	/// wave spawner class is responsible for knowing when to start a new wave when a wave is still in progress when the game is over (by winning) 
+	/// and for of course keeping track of the number of the wave its on and then spawning the enemies based on a wave assigned in inspector 
+	/// </summary>
 	public static int EnemiesAlive = 0;
-	//arrray of waves to spawn which can be dragged in through the inspector 
-	[Header("Here we configure waves in the inspector just drag the wave.cs script and then drag the enemy prefabs you want!")]
-	public Wave[] waves;
+	//arrray of Waves to spawn which can be dragged in through the inspector 
+	[Header("Here we configure Waves in the inspector just drag the wave.cs script and then drag the enemy prefabs you want!")]
+	public Wave[] Waves;
 	[Header("Required Refrences")]
 	[SerializeField]
 	private Transform spawnPoint;
 	[SerializeField]
 	private WayPoints wayPoints; // public so that we can pass the waypoints
 	//public so that game state can be relayed to game manager
-	public bool waveOver = true;
+	public bool WaveOver = true;
 	//for skip button
 	private bool skipTime = false;
 	[SerializeField]
@@ -48,17 +50,18 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 		GameOver,
 		UnitTest
     }
-	private WaveState currentWaveState = WaveState.Over;
+	//for the skip button functionality
+	public void SetSkip(bool skip)
+	{
+		skipTime = skip;
+	}
+
 	private void Start()
     {
 		if (!isUnitTest)
 		{
 			waveCounterText.text = "30";
 		}
-        else
-        {
-			currentWaveState = WaveState.UnitTest;
-        }
     }
     void FixedUpdate()
 	{
@@ -72,12 +75,12 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 					initalCountdown = timeBetweenWaves;
 					break;
 				case WaveState.Ongoing:
-					waveOver = false;
+					WaveOver = false;
 					MutualWaveState();
 					//
 					break;
 				case WaveState.Over:
-					waveOver = true;
+					WaveOver = true;
 					MutualWaveState();
 					setUI(true);
 					break;
@@ -103,16 +106,20 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
     {
 		if (EnemiesAlive > 0)
 		{
-			//waveOver = false;
+			//WaveOver = false;
 			return WaveState.Ongoing;
 		}
 		if (initalCountdown <= 0f || skipTime == true)
 		{
 			return WaveState.Start;
         }
-		if (waveIndex == waves.Length)
+		if (waveIndex == Waves.Length)
         {
 			return WaveState.GameOver;
+        }
+        if (isUnitTest)
+        {
+	        return WaveState.UnitTest;
         }
 		else
 		{
@@ -129,14 +136,14 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 		//update the amount of rounds in the playerinfo instance
 		PlayerInfo.Rounds++;
 		//get the wavescript that matches the current wave's index (so waveindex = 1 it gets the second wavescript in the array)
-		Wave wave = waves[waveIndex];
+		Wave wave = Waves[waveIndex];
 		EnemiesAlive = wave.Count;
 		for (int i = 0; i < wave.Count; i++)
 		{	
-			for (int j = 0; j < wave.monsters.Count; j++)
+			for (int j = 0; j < wave.Monsters.Count; j++)
 			{
-				SpawnEnemy(wave.monsters[j]);
-				Debug.Log(wave.monsters.Count);
+				SpawnEnemy(wave.Monsters[j]);
+				Debug.Log(wave.Monsters.Count);
 				yield return new WaitForSeconds(wave.Rate / 1f);
 			}
 		}	
@@ -153,14 +160,8 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	private void SpawnEnemy(Monster enemy)
 	{
 		Monster monster = Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-		monster.pathingScript.WayPoints = wayPoints;
+		monster.PathingScript.WayPoints = wayPoints;
 	}
-	//for the skip button functionality
-	public void SetSkip(bool skip)
-    {
-		skipTime = skip;
-    }
-
 	/// <summary>
 	/// UNIT TEST METHODS that I call on buttons within unit tests scenes
 	/// </summary>
@@ -171,22 +172,22 @@ public class WaveSpawner : Singleton<WaveSpawner> //inherit from singleton class
 	}	
 	public IEnumerator TestWaveSpawn(int waveNum)
 	{
-		Wave wave = waves[waveNum];
+		Wave wave = Waves[waveNum];
 		for (int i = 0; i < wave.Count; i++)
 		{
-			SpawnEnemy(wave.monsters[0]);
+			SpawnEnemy(wave.Monsters[0]);
 			yield return new WaitForSeconds(1f / wave.Rate);
 		}
 	}
 	// FOR CANNON UNIT TEST SO I CAN SPAWN 3 WAVES IN 3 DIFFRENT LINES
 	public void SpawnDiffrentWaypointTest(int wayPoint)
 	{
-        Wave wave = waves[3];
-        SpawnMultipleWaypointEnemy(wave.monsters[0], wayPoint);
+        Wave wave = Waves[3];
+        SpawnMultipleWaypointEnemy(wave.Monsters[0], wayPoint);
     }
     public void SpawnMultipleWaypointEnemy(Monster enemy, int wayPoint)
     {
         Monster monster = Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-        monster.pathingScript.WayPoints = wayPointsTest[wayPoint];
+        monster.PathingScript.WayPoints = wayPointsTest[wayPoint];
     }
 }

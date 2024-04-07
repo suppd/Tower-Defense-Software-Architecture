@@ -431,7 +431,6 @@ GameObject:
   - component: {fileID: 1143604441476252755}
   - component: {fileID: 2898648447933526169}
   - component: {fileID: 7979291587173945035}
-  - component: {fileID: 1546819337398475654}
   - component: {fileID: 1735002214339504233}
   m_Layer: 0
   m_Name: TowerDebuffPrefab
@@ -554,32 +553,6 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 8
     m_NumAlphaKeys: 2
---- !u!114 &1546819337398475654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3691523531608101196}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b86ec3fa0ccb9274e9743e8e7cf9a154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerShootingScipt: {fileID: 4610424629805480087}
-  tower: {fileID: 3691523531608101196}
-  levelDisplay: {fileID: 7522804311973291273}
-  towerPrice: 30
-  towerUpgradePrice: 5
-  towerDamage: 0
-  towerFireRate: 1
-  towerSlowDuration: 3
-  towerExplosionRadius: 0
-  allTowerLevelGain: 1
-  allTowerFireRateGain: 1
-  NormalTowerDamageGain: 1
-  AOETowerRadiusGain: 0.5
-  DebuffTowerSlowDurationGain: 1
 --- !u!114 &1735002214339504233
 MonoBehaviour:
   m_ObjectHideFlags: 0

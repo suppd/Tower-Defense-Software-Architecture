@@ -42,15 +42,15 @@ public class CannonBall : MonoBehaviour
             //Debug.Log("type set to NORMAL");
         }
     }
-    public void setBulletDamage(int damageToSet)
+    public void SetBulletDamage(int damageToSet)
     {
         Damage = damageToSet;
     }
-    public void setBulletSlowDuration(float durationToSet)
+    public void SetBulletSlowDuration(float durationToSet)
     {
         SlowDuration = durationToSet;
     }
-    public void setBulletExplosionRadius(float radiusToSet)
+    public void SetBulletExplosionRadius(float radiusToSet)
     {
         ExplosionRadius = radiusToSet;
     }
@@ -129,9 +129,9 @@ public class CannonBall : MonoBehaviour
         Monster e = enemy.GetComponent<Monster>();
         if (e != null)
         {
-            if (!e.isSlowed)
+            if (!e.IsSlowed)
             {
-                e.slowDuration = SlowDuration;
+                e.SlowDuration = SlowDuration;
                 e.GetSlowed(SlowAmount);
             }
         }

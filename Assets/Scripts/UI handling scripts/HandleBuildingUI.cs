@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class HandleBuildingUI : MonoBehaviour
 {
-    //this script makes build buttons red if player has insufficient money, sets the prices displayed on the buttons and sets the tower info panels text
+    /// <summary>
+    /// this script makes build buttons red if player has insufficient money, sets the prices displayed on the buttons and sets the tower info panels text
+    /// it takes the lists from building manager script to do this at first I had preassigned lists in the editor/scene but to dynamically spawn UI its not possible to pre assign so I do it like this
+    /// </summary>
     [SerializeField]
     private List<Button> buttons;
     [SerializeField] 
-    private List<TextMeshProUGUI> buttonTexts;
+    private List<TextMeshProUGUI> buttonPriceTexts =new List<TextMeshProUGUI>();
     [SerializeField]
+    private List<TextMeshProUGUI> buttonNameTexts =new List<TextMeshProUGUI>();
     private List<TowerScriptableObject> towerDatas;
-    [SerializeField]
     private List<GameObject> infoPanels;
     //NOTE : these lists need to be same order (index) for this script to function properly
     public void Update()
@@ -23,8 +27,21 @@ public class HandleBuildingUI : MonoBehaviour
     }
     private void Start()
     {
-        SetButtonPriceTexts();
+        buttons = BuildingManagerScript.Instance.InstaniatedButtons;
+        towerDatas = BuildingManagerScript.Instance.TowerDatas;
+        infoPanels = BuildingManagerScript.Instance.InfoPanels;
+        GetTextsFromButtons();
+        SetButtonTexts();
         SetTowerInfoPanelTexts();
+    }
+
+    private void GetTextsFromButtons()
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            buttonPriceTexts[i] = buttons[i].gameObject.transform.Find("PriceText").GetComponent<TextMeshProUGUI>();
+            buttonNameTexts[i] = buttons[i].gameObject.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
+        }
     }
     private void CheckButtonColor()
     {
@@ -42,11 +59,16 @@ public class HandleBuildingUI : MonoBehaviour
             }
         }
     }
-    private void SetButtonPriceTexts()
+    private void SetButtonTexts()
     {
         for (int i = 0; i < towerDatas.Count; i++)
         {
-            buttonTexts[i].text = towerDatas[i].TowerPrice.ToString();
+            //Cut off the last bit of text -> (TowerScriptableObject) to make UI look nicer
+            string originalText = towerDatas[i].ToString();
+            int indexOfOpeningParenthesis = originalText.IndexOf('(');
+            string modifiedText = originalText.Substring(0, indexOfOpeningParenthesis).Trim();
+            buttonNameTexts[i].text = modifiedText;
+            buttonPriceTexts[i].text = towerDatas[i].TowerPrice.ToString();
         }
     }
     private void SetTowerInfoPanelTexts()

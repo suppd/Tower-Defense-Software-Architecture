@@ -165,7 +165,6 @@ GameObject:
   - component: {fileID: 2898648447933526169}
   - component: {fileID: 855777154385991760}
   - component: {fileID: 4718228353201541186}
-  - component: {fileID: 1546819337398475654}
   m_Layer: 0
   m_Name: TowerCannon
   m_TagString: Untagged
@@ -302,32 +301,6 @@ MonoBehaviour:
   towerUpgradeButton: {fileID: 6580297062178159394}
   towerScript: {fileID: 855777154385991760}
   buttonText: {fileID: 536282668492562648}
---- !u!114 &1546819337398475654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3691523531608101196}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b86ec3fa0ccb9274e9743e8e7cf9a154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerShootingScipt: {fileID: 4610424629805480087}
-  tower: {fileID: 3691523531608101196}
-  levelDisplay: {fileID: 3822628846678286336}
-  towerPrice: 10
-  towerUpgradePrice: 5
-  towerDamage: 8
-  towerFireRate: 1
-  towerSlowDuration: 0
-  towerExplosionRadius: 0
-  allTowerLevelGain: 1
-  allTowerFireRateGain: 1
-  NormalTowerDamageGain: 1
-  AOETowerRadiusGain: 0.5
-  DebuffTowerSlowDurationGain: 1
 --- !u!1 &4610424630949621214
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,14 +801,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
---- !u!1 &3691523531291848602 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
-  m_PrefabInstance: {fileID: 4610424630533444299}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4067099812935578912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
+  m_PrefabInstance: {fileID: 4610424630533444299}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3691523531291848602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9f52360f3bda5904fb9b026ccbac1dac, type: 3}
   m_PrefabInstance: {fileID: 4610424630533444299}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7334512406955283877
